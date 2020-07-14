@@ -9,5 +9,7 @@
     "express": "^4.17.1",
     "mongoose": "^5.9.23",
     "nodemon": "^2.0.4"
-  }
+  },
+  "repository": "https://github.com/iterate/anywhere-music-map-.git",
+  "author": "Sherveer Singh Pannu"
 }
