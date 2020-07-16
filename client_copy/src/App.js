@@ -1,7 +1,8 @@
-import React, { useState, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import SpotifyWebApi from 'spotify-web-api-js';
+import axios from 'axios';
 
 const spotifyWeb = new SpotifyWebApi();
 
@@ -30,6 +31,14 @@ function App() {
 	};
 
 	getHashParams();
+	useEffect(() => {
+		axios
+			.post('http://localhost:8000/api/user', {
+				userName: 'Sher',
+				artists: [ 'kanye', 'cher' ]
+			})
+			.then((res) => console.log('result??', res));
+	}, []);
 
 	const getInfo = async () => {
 		//const token = _getToken();
@@ -54,7 +63,7 @@ function App() {
 			spotifyWeb.setAccessToken(access_t);
 			console.log('test');
 			spotifyWeb
-				.getMe() // note that we don't pass a user id
+				.getMyTopArtists() // note that we don't pass a user id
 				.then(
 					function(data) {
 						console.log('User playlists', data);
