@@ -1,6 +1,9 @@
 import React, { useState, Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import SpotifyWebApi from 'spotify-web-api-js';
+
+const spotifyWeb = new SpotifyWebApi();
 
 function App() {
 	/* constructur();
@@ -12,9 +15,8 @@ function App() {
 	const [ accessToken, setAccessToken ] = useState('');
 	const [ inputValue, setInputValue ] = useState('');
 	const test = 'hello';
-
+	var hashParams = {};
 	const getHashParams = () => {
-		var hashParams = {};
 		var e,
 			r = /([^&;=]+)=?([^&;]*)/g,
 			q = window.location.hash.substring(1);
@@ -23,17 +25,18 @@ function App() {
 			hashParams[e[1]] = decodeURIComponent(e[2]);
 			e = r.exec(q);
 		}
-		console.log(hashParams.access_token);
-		return hashParams;
+		console.log('hashparams', hashParams);
+		return hashParams.access_token;
 	};
 
 	getHashParams();
 
 	const spotifyLogin2 = async () => {
 		//const token = _getToken();
-		let token = await _getToken();
+		//let token = await _getToken();
 
-		console.log(token.access_token);
+		const access_t = getHashParams();
+		console.log('getting hash params: ', access_t);
 
 		const limit = 10;
 
@@ -42,19 +45,35 @@ function App() {
 			{
 				method: 'GET',
 				headers: {
-					Authorization:
-						'Bearer ' +
-						'BQBIjoSsBP4lck8wKiCp1BbaWHaELRmRrzzomQZY4rBgd8BCUslCJ373Vfoa5Wrk4bQ5_o6K4-xZ7dnx5zmltmc8fiSYedxdpVPkPJ3qRkO1mm4whdhky2flagaaXoxFilfTEY7_B4hp3IJeFctP6oLrTQ9hleHoYhBsSoVaCNUeGzLi0V8TKgTvx1NV9topqgcRuD8vgnCJ8-CFbgW8Kj-3VNPa3T8gAU4mVxgj_zrg3lu1m3KWevpvE-Dros4OG4zpDwiBY_5qqlvF'
+					Authorization: 'Bearer ' + access_t
 				}
 			}
 		);
 
+		if (access_t) {
+			spotifyWeb.setAccessToken(access_t);
+			console.log('test');
+			spotifyWeb
+				.getUserPlaylists() // note that we don't pass a user id
+				.then(
+					function(data) {
+						console.log('User playlists', data);
+					},
+					function(err) {
+						console.error(err);
+					}
+				);
+		}
+
+		console.log('Ann4prez', spotifyWeb.getMyTopArtists());
+
+		console.log('result -> ', result);
 		let data = await result.json();
-		console.log(data);
+		console.log('data; ', data);
 		return data.items;
 	};
 
-	const spotifyLogin = () => {
+	/* const spotifyLogin = () => {
 		_getToken();
 	};
 
@@ -74,7 +93,7 @@ function App() {
 
 		setAccessToken(data.access_token);
 		return data;
-	};
+	}; */
 
 	// UI Module
 
@@ -82,14 +101,18 @@ function App() {
 		//e.preventDefault()
 		setInputValue(e.target.value);
 	};
+
 	return (
 		<div className="App">
 			<body>
 				<script src="https://sdk.scdn.co/spotify-player.js" />
 			</body>
 			<div className="container">
-				<a href="http://localhost:8888"> Login to Spotify </a>
-				<button onClick={() => spotifyLogin2()}>Login with Spotify p</button>
+				<a href="http://localhost:8888">
+					<button>Login with Spotify</button>
+				</a>
+				<button onClick={() => spotifyLogin2()}>get info</button>
+
 				<input value={inputValue} onChange={(e) => updateInputValue(e)} />
 				<p>{inputValue}</p>
 			</div>
