@@ -1,37 +1,45 @@
 import React from 'react'
 import styled from 'styled-components'
+import FindFriends from './FindFriends'
 
-export const Content = ({ musicData, topArtistData }) => {
+export const Content = ({ musicData, topArtistData, addFriendPage }) => {
   console.log('musicdata', musicData)
   console.log('topaeasodkwejfpewf', topArtistData)
   return (
     <Container>
-      <Box>
-        <h1>DISCOVER</h1>
-        <Titles>My top artists</Titles>
-        {/* {topArtistData.items &&
-          topArtistData.items.map(artist => <p>{artist.name}</p>)} */}
-        <Wrapper>
-          {topArtistData.items &&
-            topArtistData.items.map(
-              (artist, index) =>
-                index < 5 && (
-                  <ArtistBox>
-                    <img
-                      style={{
-                        width: '60px',
-                        height: '60px',
-                        borderRadius: '10px'
-                      }}
-                      src={artist.images[0].url}
-                    ></img>
-                    <ArtistTitle>{artist.name}</ArtistTitle>
-                  </ArtistBox>
-                )
-            )}
-        </Wrapper>
-        <Titles>Based on your music taste</Titles>
-      </Box>
+      {addFriendPage ? (
+        <div>
+          <FindFriends />
+        </div>
+      ) : (
+        <div>
+          {' '}
+          <Box>
+            <h1>DISCOVER</h1>
+            <Titles>My top artists</Titles>
+            <Wrapper>
+              {topArtistData.items &&
+                topArtistData.items.map(
+                  (artist, index) =>
+                    index < 5 && (
+                      <ArtistBox>
+                        <img
+                          style={{
+                            width: '60px',
+                            height: '60px',
+                            borderRadius: '10px'
+                          }}
+                          src={artist.images[0].url}
+                        ></img>
+                        <ArtistTitle>{artist.name}</ArtistTitle>
+                      </ArtistBox>
+                    )
+                )}
+            </Wrapper>
+            <Titles>Based on your music taste</Titles>
+          </Box>
+        </div>
+      )}
     </Container>
   )
 }

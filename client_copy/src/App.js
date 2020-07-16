@@ -14,6 +14,7 @@ function App () {
   const [checkedOption, setCheckedOption] = useState()
   const [personalData, setPersonalData] = useState([])
   const [topArtists, setTopArtists] = useState([])
+  const [addFriendPage, setAddFriendPage] = useState(false)
   let hashParams = {}
 
   const getHashParams = () => {
@@ -111,6 +112,7 @@ function App () {
           checkedOption={checkedOption}
           loggedIn={loggedIn}
           personalData={personalData}
+          setAddFriendPage={setAddFriendPage}
         />
         <Wrapper>
           <body>
@@ -118,7 +120,11 @@ function App () {
           </body>
           <LoginContent>
             {loggedIn ? (
-              <Content topArtistData={topArtists} musicData={personalData} />
+              <Content
+                addFriendPage={addFriendPage}
+                topArtistData={topArtists}
+                musicData={personalData}
+              />
             ) : (
               <div style={{ padding: '10%' }}>
                 <a href='http://localhost:8888'>

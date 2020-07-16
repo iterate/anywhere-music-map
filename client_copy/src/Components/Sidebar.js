@@ -5,12 +5,18 @@ export const Sidebar = ({
   loggedIn,
   checkedOption,
   setCheckedOption,
-  personalData
+  personalData,
+  setAddFriendPage
 }) => {
   console.log('loggedin', loggedIn)
   const handleOptionChange = e => {
     setCheckedOption(e.target.value)
   }
+
+  const addFriends = () => {
+    setAddFriendPage(true)
+  }
+
   return (
     <Container width='20%' height='100vh'>
       {loggedIn && (
@@ -65,17 +71,23 @@ export const Sidebar = ({
             </form>
             <Container>
               <H3>Find friends</H3>
-              <img
+              <button
                 style={{
-                  width: '70px',
-                  height: '70px',
-                  borderRadius: '5px',
-                  role: 'button'
+                  backgroundColor: '#333333',
+                  border: 'none',
+                  outline: 'none'
                 }}
-                src='addProfile.svg'
-                role='button'
-                cursor='pointer'
-              ></img>
+                onClick={addFriends}
+              >
+                <img
+                  style={{
+                    width: '70px',
+                    height: '70px',
+                    borderRadius: '5px'
+                  }}
+                  src='addProfile.svg'
+                />
+              </button>
             </Container>
           </Container>
         </div>
