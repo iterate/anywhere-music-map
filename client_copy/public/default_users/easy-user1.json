@@ -1,0 +1,27 @@
+{
+	"display_name": "Sherveer Singh Pannu",
+	"id": "1144314543",
+	"imgUrl": "https://scontent-ams4-1.xx.fbcdn.net/v/t1.0-1/s320x320/34645098_10216720647276740_8255531857127407616_o.jpg?_nc_cat=107&_nc_sid=0c64ff&_nc_ohc=Ayrd40c_TBMAX-0KTbS&_nc_ht=scontent-ams4-1.xx&_nc_tp=7&oh=c08a4705817cda16d0385d9b05819905&oe=5F377CA5",
+
+	"artists": [
+		{
+			"genres": [ "melodic rap", "pop rap", "rap", "trap" ],
+			"name": "SAINt JHN"
+		},
+		{
+			"genres": [
+				"norwegian hip hop",
+				"norwegian indie",
+				"norwegian pop",
+				"norwegian pop rap",
+				"norwegian rock",
+				"tropical house"
+			],
+			"name": "Karpe"
+		},
+		{
+			"genres": [ "canadian hip hop", "canadian pop", "hip hop", "pop rap", "rap", "toronto rap" ],
+			"name": "Drake"
+		}
+	]
+}

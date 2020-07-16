@@ -40,7 +40,7 @@ function App() {
 		axios
 			.post('http://localhost:8000/api/user', {
 				username: personalData.display_name,
-				artists: artistList
+				artists: topArtists
 			})
 			.then((res) => console.log('did it work?', res));
 	}, []);
@@ -55,8 +55,8 @@ function App() {
 				for (let artist = 0; artist < result.length; artist++) {
 					//console.log('ARTITS', artist);
 					artistList.push(result[artist].name);
-					console.log('dhfksjdhflshdf', artistList);
 				} // "Some User token"
+				console.log('dhfksjdhflshdf', artistList);
 			}
 		});
 		//
@@ -126,7 +126,7 @@ function App() {
 				);
 		}
 		let data = await result.json();
-		setTopArtists(data.items);
+		//setTopArtists(data.items);
 
 		console.log('DATA', data);
 		return data.items;
