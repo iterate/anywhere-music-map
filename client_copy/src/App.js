@@ -1,123 +1,118 @@
-import React, { useState, Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import SpotifyWebApi from 'spotify-web-api-js';
+import React, { useState, useEffect } from 'react'
+import './App.css'
+import SpotifyWebApi from 'spotify-web-api-js'
+import styled from 'styled-components'
+import Header from './Components/Header'
+import Sidebar from './Components/Sidebar'
+import Content from './Components/Content'
 
-const spotifyWeb = new SpotifyWebApi();
+const spotifyWeb = new SpotifyWebApi()
 
-function App() {
-	/* constructur();
-	{
-		var hashParams = this.getHashParams;
-	} */
-	const clientId = 'f2c4a36edf6541c7922bbaab046328a1';
-	const clientSecret = '835373c22ef349ee9c10567e75ac5ba5';
-	const [ accessToken, setAccessToken ] = useState('');
-	const [ inputValue, setInputValue ] = useState('');
-	const test = 'hello';
-	var hashParams = {};
-	const getHashParams = () => {
-		var e,
-			r = /([^&;=]+)=?([^&;]*)/g,
-			q = window.location.hash.substring(1);
-		e = r.exec(q);
-		while (e) {
-			hashParams[e[1]] = decodeURIComponent(e[2]);
-			e = r.exec(q);
-		}
-		console.log('hashparams', hashParams);
-		return hashParams.access_token;
-	};
+function App () {
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [checkedOption, setCheckedOption] = useState()
+  const [musicData, setMusicData] = useState([])
+  let hashParams = {}
 
-	getHashParams();
+  const getHashParams = () => {
+    var e,
+      r = /([^&;=]+)=?([^&;]*)/g,
+      q = window.location.hash.substring(1)
+    e = r.exec(q)
+    while (e) {
+      hashParams[e[1]] = decodeURIComponent(e[2])
+      e = r.exec(q)
+    }
+    return hashParams.access_token
+  }
+  useEffect(() => {
+    hashParams.access_token ? setLoggedIn(true) : setLoggedIn(false)
+  }, [])
 
-	const spotifyLogin2 = async () => {
-		//const token = _getToken();
-		//let token = await _getToken();
+  getHashParams()
 
-		const access_t = getHashParams();
-		console.log('getting hash params: ', access_t);
+  const spotifyLogin2 = async () => {
+    const access_t = getHashParams()
+    const result = await fetch(
+      `https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10&offset=5`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + access_t
+        }
+      }
+    ).then(console.log('logeg', loggedIn))
 
-		const limit = 10;
+    if (access_t) {
+      spotifyWeb.setAccessToken(access_t)
+      spotifyWeb
+        .getUserPlaylists() // note that we don't pass a user id
+        .then(
+          function (data) {
+            setMusicData(data)
+            console.log('data?', data)
+          },
+          console.log('loggedin before', loggedIn),
 
-		const result = await fetch(
-			`https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10&offset=5`,
-			{
-				method: 'GET',
-				headers: {
-					Authorization: 'Bearer ' + access_t
-				}
-			}
-		);
+          setLoggedIn(true),
 
-		if (access_t) {
-			spotifyWeb.setAccessToken(access_t);
-			console.log('test');
-			spotifyWeb
-				.getUserPlaylists() // note that we don't pass a user id
-				.then(
-					function(data) {
-						console.log('User playlists', data);
-					},
-					function(err) {
-						console.error(err);
-					}
-				);
-		}
+          console.log('loggedin after', loggedIn),
+          function (err) {
+            console.error(err)
+          }
+        )
+    }
+    let data = await result.json()
+    console.log('DATA', data)
+    return data.items
+  }
 
-		console.log('Ann4prez', spotifyWeb.getMyTopArtists());
-
-		console.log('result -> ', result);
-		let data = await result.json();
-		console.log('data; ', data);
-		return data.items;
-	};
-
-	/* const spotifyLogin = () => {
-		_getToken();
-	};
-
-	const _getToken = async () => {
-		console.log('kommer vi hit');
-		const result = await fetch('https://accounts.spotify.com/api/token', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-				Authorization: 'Basic ' + btoa(clientId + ':' + clientSecret)
-			},
-			body: 'grant_type=client_credentials'
-		});
-
-		const data = await result.json();
-		console.log('data:', data.access_token);
-
-		setAccessToken(data.access_token);
-		return data;
-	}; */
-
-	// UI Module
-
-	const updateInputValue = (e) => {
-		//e.preventDefault()
-		setInputValue(e.target.value);
-	};
-
-	return (
-		<div className="App">
-			<body>
-				<script src="https://sdk.scdn.co/spotify-player.js" />
-			</body>
-			<div className="container">
-				<a href="http://localhost:8888">
-					<button>Login with Spotify</button>
-				</a>
-				<button onClick={() => spotifyLogin2()}>get info</button>
-
-				<input value={inputValue} onChange={(e) => updateInputValue(e)} />
-				<p>{inputValue}</p>
-			</div>
-		</div>
-	);
+  return (
+    <Container>
+      <Header />
+      <Wrapper>
+        <Sidebar
+          setCheckedOption={setCheckedOption}
+          checkedOption={checkedOption}
+          loggedIn={loggedIn}
+        />
+        <Wrapper>
+          <body>
+            <script src='https://sdk.scdn.co/spotify-player.js' />
+          </body>
+          <LoginContent>
+            {loggedIn ? (
+              <Content musicData={musicData} />
+            ) : (
+              <div style={{ padding: '10%' }}>
+                <a href='http://localhost:8888'>
+                  <button>Login with Spotify</button>
+                </a>
+                <button onClick={() => spotifyLogin2()}>get info</button>
+              </div>
+            )}
+          </LoginContent>
+        </Wrapper>
+      </Wrapper>
+    </Container>
+  )
 }
 
-export default App;
+export default App
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
+export const LoginContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  background-color: #e0e0e0;
+  width: 100vw;
+`
