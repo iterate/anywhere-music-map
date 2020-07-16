@@ -31,14 +31,14 @@ function App() {
 
 	getHashParams();
 
-	const spotifyLogin2 = async () => {
+	const getInfo = async () => {
 		//const token = _getToken();
 		//let token = await _getToken();
 
 		const access_t = getHashParams();
 		console.log('getting hash params: ', access_t);
 
-		const limit = 10;
+		/* const limit = 10;
 
 		const result = await fetch(
 			`https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10&offset=5`,
@@ -48,29 +48,29 @@ function App() {
 					Authorization: 'Bearer ' + access_t
 				}
 			}
-		);
+		); */
 
 		if (access_t) {
 			spotifyWeb.setAccessToken(access_t);
 			console.log('test');
 			spotifyWeb
-				.getUserPlaylists() // note that we don't pass a user id
+				.getMe() // note that we don't pass a user id
 				.then(
 					function(data) {
 						console.log('User playlists', data);
 					},
 					function(err) {
-						console.error(err);
+						console.error('error melding ', err);
 					}
 				);
 		}
 
-		console.log('Ann4prez', spotifyWeb.getMyTopArtists());
+		/* console.log('Ann4prez', spotifyWeb.getMyTopArtists());
 
 		console.log('result -> ', result);
 		let data = await result.json();
 		console.log('data; ', data);
-		return data.items;
+		return data.items; */
 	};
 
 	/* const spotifyLogin = () => {
@@ -111,7 +111,7 @@ function App() {
 				<a href="http://localhost:8888">
 					<button>Login with Spotify</button>
 				</a>
-				<button onClick={() => spotifyLogin2()}>get info</button>
+				<button onClick={() => getInfo()}>get info</button>
 
 				<input value={inputValue} onChange={(e) => updateInputValue(e)} />
 				<p>{inputValue}</p>
