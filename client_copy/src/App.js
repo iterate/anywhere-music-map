@@ -5,13 +5,15 @@ import styled from 'styled-components'
 import Header from './Components/Header'
 import Sidebar from './Components/Sidebar'
 import Content from './Components/Content'
+import axios from 'axios'
 
 const spotifyWeb = new SpotifyWebApi()
 
 function App () {
   const [loggedIn, setLoggedIn] = useState(false)
   const [checkedOption, setCheckedOption] = useState()
-  const [musicData, setMusicData] = useState([])
+  const [personalData, setPersonalData] = useState([])
+  const [topArtists, setTopArtists] = useState([])
   let hashParams = {}
 
   const getHashParams = () => {
@@ -27,11 +29,14 @@ function App () {
   }
   useEffect(() => {
     hashParams.access_token ? setLoggedIn(true) : setLoggedIn(false)
+    getMe()
+    getTopArtists()
+    console.log('PersonalData', personalData)
   }, [])
 
   getHashParams()
 
-  const spotifyLogin2 = async () => {
+  const getMe = async () => {
     const access_t = getHashParams()
     const result = await fetch(
       `https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10&offset=5`,
@@ -46,10 +51,10 @@ function App () {
     if (access_t) {
       spotifyWeb.setAccessToken(access_t)
       spotifyWeb
-        .getUserPlaylists() // note that we don't pass a user id
+        .getMe() // note that we don't pass a user id
         .then(
           function (data) {
-            setMusicData(data)
+            setPersonalData(data)
             console.log('data?', data)
           },
           console.log('loggedin before', loggedIn),
@@ -57,6 +62,36 @@ function App () {
           setLoggedIn(true),
 
           console.log('loggedin after', loggedIn),
+          function (err) {
+            console.error(err)
+          }
+        )
+    }
+    let data = await result.json()
+    console.log('DATA', data)
+    return data.items
+  }
+
+  const getTopArtists = async () => {
+    const access_t = getHashParams()
+    const result = await fetch(
+      `https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10&offset=5`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + access_t
+        }
+      }
+    ).then(console.log('logeg', loggedIn))
+
+    if (access_t) {
+      spotifyWeb.setAccessToken(access_t)
+      spotifyWeb
+        .getMyTopArtists() // note that we don't pass a user id
+        .then(
+          function (data) {
+            setTopArtists(data)
+          },
           function (err) {
             console.error(err)
           }
@@ -75,6 +110,7 @@ function App () {
           setCheckedOption={setCheckedOption}
           checkedOption={checkedOption}
           loggedIn={loggedIn}
+          personalData={personalData}
         />
         <Wrapper>
           <body>
@@ -82,13 +118,12 @@ function App () {
           </body>
           <LoginContent>
             {loggedIn ? (
-              <Content musicData={musicData} />
+              <Content topArtistData={topArtists} musicData={personalData} />
             ) : (
               <div style={{ padding: '10%' }}>
                 <a href='http://localhost:8888'>
                   <button>Login with Spotify</button>
                 </a>
-                <button onClick={() => spotifyLogin2()}>get info</button>
               </div>
             )}
           </LoginContent>
@@ -114,5 +149,5 @@ export const LoginContent = styled.div`
   display: flex;
   flex-direction: row;
   background-color: #e0e0e0;
-  width: 100vw;
+  width: 80vw;
 `
