@@ -39,8 +39,8 @@ export const Sidebar = ({
                 <label style={{ color: 'white', width: '200px' }}>
                   <input
                     type='radio'
-                    value='option1'
-                    checked={checkedOption === 'option1'}
+                    value='myfavorites'
+                    checked={checkedOption === 'myfavorites'}
                     onChange={handleOptionChange}
                   />
                   My favorites
@@ -50,8 +50,8 @@ export const Sidebar = ({
                 <label style={{ color: 'white', width: '200px' }}>
                   <input
                     type='radio'
-                    value='option2'
-                    checked={checkedOption === 'option2'}
+                    value='globalfavorites'
+                    checked={checkedOption === 'globalfavorites'}
                     onChange={handleOptionChange}
                   />
                   Global favorites
@@ -61,8 +61,8 @@ export const Sidebar = ({
                 <label style={{ color: 'white', width: '200px' }}>
                   <input
                     type='radio'
-                    value='option3'
-                    checked={checkedOption === 'option3'}
+                    value='friendsfavorites'
+                    checked={checkedOption === 'friendsfavorites'}
                     onChange={handleOptionChange}
                   />
                   Friends favorites

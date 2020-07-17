@@ -9,9 +9,14 @@ import axios from 'axios'
 
 const spotifyWeb = new SpotifyWebApi()
 
+const Obj = {
+  name: String,
+  number: Number
+}
+
 function App () {
   const [loggedIn, setLoggedIn] = useState(false)
-  const [checkedOption, setCheckedOption] = useState()
+  const [checkedOption, setCheckedOption] = useState('friendsfavorites')
   const [personalData, setPersonalData] = useState([])
   const [topArtists, setTopArtists] = useState([])
   const [addFriendPage, setAddFriendPage] = useState(false)
@@ -34,6 +39,10 @@ function App () {
     getTopArtists()
     console.log('PersonalData', personalData)
   }, [])
+
+  useEffect(() => {
+    checkedOption === 'friendsfavorites' && setAddFriendPage(false)
+  }, [checkedOption])
 
   getHashParams()
 
