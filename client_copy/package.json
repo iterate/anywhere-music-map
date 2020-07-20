@@ -11,7 +11,8 @@
 		"react-dom": "^16.13.1",
 		"react-scripts": "3.4.1",
 		"spotify-web-api-js": "^0.22.1",
-		"styled-components": "^5.1.1"
+		"styled-components": "^5.1.1",
+		"trie-search": "^1.2.11"
 	},
 	"scripts": {
 		"start": "react-scripts start",

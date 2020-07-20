@@ -9,6 +9,42 @@ export const Content = ({
   topArtistData,
   addFriendPage
 }) => {
+  let FriendMap = new Map()
+
+  const matchFriends = () => {
+    friends.forEach((friend, index) => {
+      friend.artists.forEach(friendArtist => {
+        //if this artist is not already in the list where we compare artists
+        if (!FriendMap.has(friendArtist)) {
+          FriendMap.set(friendArtist, [friend.userName])
+        }
+        if (!FriendMap.get(friendArtist).includes(friend.userName)) {
+          FriendMap.get(friendArtist).push(friend.userName)
+        }
+      })
+    })
+    console.log('FriendMap at end', FriendMap)
+    /* FriendMap.forEach((object, index) =>
+      console.log('what value is here?', object)
+    ) */
+    let sorted = sortFriends()
+    console.log('sorted?', sorted)
+  }
+
+  const sortFriends = () => {
+    console.log('length of firndmap', FriendMap, FriendMap.size)
+
+    for (let obj = 0; obj < FriendMap.size; obj++) {
+      console.log(FriendMap[obj])
+    }
+    /*  FriendMap.sort((a, b) => {
+      return a.length - b.length
+    }) */
+  }
+
+  useEffect(() => {
+    matchFriends()
+  }, [me, friends])
   return (
     <Container>
       {addFriendPage ? (

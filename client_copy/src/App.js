@@ -33,6 +33,8 @@ function App () {
       })
     }
     console.log('FRIENDS', friends)
+    console.log('ME', me)
+    console.log('USERS', users)
   }, [me])
   let hashParams = {}
 
