@@ -9,17 +9,31 @@ import axios from 'axios'
 
 const spotifyWeb = new SpotifyWebApi()
 
-const Obj = {
-  name: String,
-  number: Number
-}
-
 function App () {
   const [loggedIn, setLoggedIn] = useState(false)
   const [checkedOption, setCheckedOption] = useState('friendsfavorites')
   const [personalData, setPersonalData] = useState([])
   const [topArtists, setTopArtists] = useState([])
   const [addFriendPage, setAddFriendPage] = useState(false)
+  const [me, setMe] = useState({})
+  const [users, setUsers] = useState([])
+  const [friends, setFriends] = useState([])
+
+  useEffect(() => {
+    console.log('me ', me)
+    if (me.friends) {
+      me.friends.forEach(friend => {
+        users.forEach(user => {
+          if (user.userName === friend) {
+            const newFriends = [...friends, user]
+            setFriends(newFriends)
+            friends.push(user)
+          }
+        })
+      })
+    }
+    console.log('FRIENDS', friends)
+  }, [me])
   let hashParams = {}
 
   const getHashParams = () => {
@@ -37,7 +51,6 @@ function App () {
     hashParams.access_token ? setLoggedIn(true) : setLoggedIn(false)
     getMe()
     getTopArtists()
-    console.log('PersonalData', personalData)
   }, [])
 
   useEffect(() => {
@@ -46,6 +59,49 @@ function App () {
 
   getHashParams()
 
+  useEffect(() => {
+    createUser()
+    createFakeUser()
+  }, [personalData, topArtists])
+
+  const createUser = () => {
+    if (
+      personalData.display_name &&
+      (topArtists.items && topArtists.items.length) > 1
+    ) {
+      axios.post('http://localhost:8000/api/user', {
+        userName: personalData.display_name,
+        artists: topArtists.items.map(artist => artist.name),
+        imageUrl: personalData.images && personalData.images[0].url
+      })
+    }
+  }
+
+  const createFakeUser = () => {
+    axios.post('http://localhost:8000/api/user', {
+      userName: 'sofie123',
+      artists: [
+        'Dua Lipa',
+        'Metallica',
+        'Miley Cyrus',
+        'DJ Fresh',
+        'Basshunter',
+        'Sam Smith',
+        'John Mayer',
+        'Astrid S',
+        'Sigrid',
+        'Aqua',
+        'Madcon',
+        'Modjo',
+        'The Killers',
+        'No.4',
+        'Rihanna'
+      ],
+      imageUrl: [
+        'https://images.unsplash.com/photo-1464863979621-258859e62245?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'
+      ]
+    })
+  }
   const getMe = async () => {
     const access_t = getHashParams()
     const result = await fetch(
@@ -56,7 +112,7 @@ function App () {
           Authorization: 'Bearer ' + access_t
         }
       }
-    ).then(console.log('logeg', loggedIn))
+    )
 
     if (access_t) {
       spotifyWeb.setAccessToken(access_t)
@@ -65,20 +121,14 @@ function App () {
         .then(
           function (data) {
             setPersonalData(data)
-            console.log('data?', data)
           },
-          console.log('loggedin before', loggedIn),
-
           setLoggedIn(true),
-
-          console.log('loggedin after', loggedIn),
           function (err) {
             console.error(err)
           }
         )
     }
     let data = await result.json()
-    console.log('DATA', data)
     return data.items
   }
 
@@ -92,7 +142,7 @@ function App () {
           Authorization: 'Bearer ' + access_t
         }
       }
-    ).then(console.log('logeg', loggedIn))
+    )
 
     if (access_t) {
       spotifyWeb.setAccessToken(access_t)
@@ -108,7 +158,6 @@ function App () {
         )
     }
     let data = await result.json()
-    console.log('DATA', data)
     return data.items
   }
 
@@ -122,22 +171,30 @@ function App () {
           loggedIn={loggedIn}
           personalData={personalData}
           setAddFriendPage={setAddFriendPage}
+          me={me}
+          setMe={setMe}
+          users={users}
+          setUsers={setUsers}
+          friends={friends}
+          setFriends={setFriends}
         />
         <Wrapper>
-          <body>
-            <script src='https://sdk.scdn.co/spotify-player.js' />
-          </body>
+          <script src='https://sdk.scdn.co/spotify-player.js' />
           <LoginContent>
             {loggedIn ? (
               <Content
                 addFriendPage={addFriendPage}
                 topArtistData={topArtists}
                 musicData={personalData}
+                personalData={personalData}
+                users={users}
+                me={me}
+                friends={friends}
               />
             ) : (
               <div style={{ padding: '10%' }}>
                 <a href='http://localhost:8888'>
-                  <button>Login with Spotify</button>
+                  <LoginButton>Login with Spotify</LoginButton>
                 </a>
               </div>
             )}
@@ -158,11 +215,25 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
 `
 
 export const LoginContent = styled.div`
   display: flex;
   flex-direction: row;
   background-color: #e0e0e0;
-  width: 80vw;
+  width: 100%;
+`
+
+export const LoginButton = styled.button`
+  width: 300px;
+  height: 60px;
+  border-radius: 10px;
+  background-color: #ff5fa2;
+  box-shadow: 5px 5px 15px #888888;
+  border-color: #ff5fa2;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 3px;
+  color: white;
 `

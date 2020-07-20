@@ -1,22 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 
 export const Sidebar = ({
   loggedIn,
   checkedOption,
   setCheckedOption,
   personalData,
-  setAddFriendPage
+  setAddFriendPage,
+  me,
+  setMe,
+  users,
+  setUsers,
+  friends,
+  setFriends
 }) => {
-  console.log('loggedin', loggedIn)
   const handleOptionChange = e => {
     setCheckedOption(e.target.value)
+  }
+
+  const getUsers = async () => {
+    await axios.get('http://localhost:8000/api/user').then(res => {
+      setUsers(res.data.data)
+    })
   }
 
   const addFriends = () => {
     setAddFriendPage(true)
   }
 
+  useEffect(() => {
+    getUsers()
+  }, [])
+
+  useEffect(() => {
+    if (users) {
+      users.forEach(
+        user => user.userName === personalData.display_name && setMe(user)
+      )
+    }
+  }, [users, personalData])
+
+  const deleteUsers = () => {
+    axios
+      .delete('http://localhost:8000/api/users')
+      .then(res => console.log('res', res))
+  }
   return (
     <Container width='20%' height='100vh'>
       {loggedIn && (
@@ -33,6 +62,8 @@ export const Sidebar = ({
             ></img>
           </Container>
           <Container>
+            {/*             <button onClick={deleteUsers}>delete users</button>
+             */}
             <H3>FILTER</H3>
             <form>
               <Wrapper>
@@ -70,7 +101,15 @@ export const Sidebar = ({
               </div>
             </form>
             <Container>
-              <H3>Find friends</H3>
+              <H3>Network</H3>
+
+              {me &&
+                me.friends &&
+                me.friends.map((friend, index) => (
+                  <FriendBox key={index}>
+                    <p>{friend}</p>
+                  </FriendBox>
+                ))}
               <button
                 style={{
                   backgroundColor: '#333333',
@@ -105,6 +144,14 @@ export const Container = styled.div`
   height: ${props => props.height};
   margin-left: 3%;
   margin-right: 3%;
+`
+
+export const FriendBox = styled.div`
+  width: 100px;
+  height: 70px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: lightgrey;
 `
 
 export const H3 = styled.h3`

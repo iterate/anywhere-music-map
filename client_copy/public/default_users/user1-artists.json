@@ -1,0 +1,347 @@
+{
+	"items": [
+		{
+			"external_urls": {
+				"spotify": "https://open.spotify.com/artist/0H39MdGGX6dbnnQPt6NQkZ"
+			},
+			"followers": {
+				"href": null,
+				"total": 410142
+			},
+			"genres": [ "melodic rap", "pop rap", "rap", "trap" ],
+			"href": "https://api.spotify.com/v1/artists/0H39MdGGX6dbnnQPt6NQkZ",
+			"id": "0H39MdGGX6dbnnQPt6NQkZ",
+			"images": [
+				{
+					"height": 640,
+					"url": "https://i.scdn.co/image/ec30ea9bc3d2007f775a91a428101b4a831ac64a",
+					"width": 640
+				},
+				{
+					"height": 320,
+					"url": "https://i.scdn.co/image/9c27d8dd4ce44f52e38549e2db6f08b3f1a60ac8",
+					"width": 320
+				},
+				{
+					"height": 160,
+					"url": "https://i.scdn.co/image/c52808cb69183a8fbffc7d05e41dadee3b5db8dd",
+					"width": 160
+				}
+			],
+			"name": "SAINt JHN",
+			"popularity": 87,
+			"type": "artist",
+			"uri": "spotify:artist:0H39MdGGX6dbnnQPt6NQkZ"
+		},
+		{
+			"external_urls": {
+				"spotify": "https://open.spotify.com/artist/3X23gpg1vPacr0hBARyxtN"
+			},
+			"followers": {
+				"href": null,
+				"total": 211562
+			},
+			"genres": [
+				"norwegian hip hop",
+				"norwegian indie",
+				"norwegian pop",
+				"norwegian pop rap",
+				"norwegian rock",
+				"tropical house"
+			],
+			"href": "https://api.spotify.com/v1/artists/3X23gpg1vPacr0hBARyxtN",
+			"id": "3X23gpg1vPacr0hBARyxtN",
+			"images": [
+				{
+					"height": 640,
+					"url": "https://i.scdn.co/image/4aac6d88e2d3cdb0e66195fedce952bdda7b3942",
+					"width": 640
+				},
+				{
+					"height": 320,
+					"url": "https://i.scdn.co/image/8ce03cdc1a62e8fcdf5e06b9f3b2813b78dc5657",
+					"width": 320
+				},
+				{
+					"height": 160,
+					"url": "https://i.scdn.co/image/77cab8f2c05eff1e8cf06d2ee2c243bd5fae34c3",
+					"width": 160
+				}
+			],
+			"name": "Karpe",
+			"popularity": 60,
+			"type": "artist",
+			"uri": "spotify:artist:3X23gpg1vPacr0hBARyxtN"
+		},
+		{
+			"external_urls": {
+				"spotify": "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"
+			},
+			"followers": {
+				"href": null,
+				"total": 47778521
+			},
+			"genres": [ "canadian hip hop", "canadian pop", "hip hop", "pop rap", "rap", "toronto rap" ],
+			"href": "https://api.spotify.com/v1/artists/3TVXtAsR1Inumwj472S9r4",
+			"id": "3TVXtAsR1Inumwj472S9r4",
+			"images": [
+				{
+					"height": 640,
+					"url": "https://i.scdn.co/image/60cfab40c6bb160a1906be45276829d430058005",
+					"width": 640
+				},
+				{
+					"height": 320,
+					"url": "https://i.scdn.co/image/5ea794cf832550943d5f8122afcf5f23ee9d85b7",
+					"width": 320
+				},
+				{
+					"height": 160,
+					"url": "https://i.scdn.co/image/8eaace74aaca82eaccde400bbcab2653b9cf86e1",
+					"width": 160
+				}
+			],
+			"name": "Drake",
+			"popularity": 99,
+			"type": "artist",
+			"uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4"
+		},
+		{
+			"external_urls": {
+				"spotify": "https://open.spotify.com/artist/3nFkdlSjzX9mRTtwJOzDYB"
+			},
+			"followers": {
+				"href": null,
+				"total": 5411051
+			},
+			"genres": [ "east coast hip hop", "hip hop", "pop rap", "rap" ],
+			"href": "https://api.spotify.com/v1/artists/3nFkdlSjzX9mRTtwJOzDYB",
+			"id": "3nFkdlSjzX9mRTtwJOzDYB",
+			"images": [
+				{
+					"height": 640,
+					"url": "https://i.scdn.co/image/4912d27d6b01dd790313d8ef76586be6b100550f",
+					"width": 640
+				},
+				{
+					"height": 320,
+					"url": "https://i.scdn.co/image/027c5605d895158497ff377d92d69fe89dba1730",
+					"width": 320
+				},
+				{
+					"height": 160,
+					"url": "https://i.scdn.co/image/1420226e471d0e56ae4de7cb28ba2eb4de0a29ce",
+					"width": 160
+				}
+			],
+			"name": "JAY-Z",
+			"popularity": 86,
+			"type": "artist",
+			"uri": "spotify:artist:3nFkdlSjzX9mRTtwJOzDYB"
+		},
+		{
+			"external_urls": {
+				"spotify": "https://open.spotify.com/artist/6l3HvQ5sa6mXTsMTB19rO5"
+			},
+			"followers": {
+				"href": null,
+				"total": 11213107
+			},
+			"genres": [ "conscious hip hop", "hip hop", "north carolina hip hop", "pop rap", "rap" ],
+			"href": "https://api.spotify.com/v1/artists/6l3HvQ5sa6mXTsMTB19rO5",
+			"id": "6l3HvQ5sa6mXTsMTB19rO5",
+			"images": [
+				{
+					"height": 640,
+					"url": "https://i.scdn.co/image/1e9eeefb2c94579150fc37916e8319b975ec8a52",
+					"width": 640
+				},
+				{
+					"height": 320,
+					"url": "https://i.scdn.co/image/e021db512f24f1b9aafad580db7408863346e9cf",
+					"width": 320
+				},
+				{
+					"height": 160,
+					"url": "https://i.scdn.co/image/35c726dfde2a3d5545a8b6cbe9cfeaaea3666764",
+					"width": 160
+				}
+			],
+			"name": "J. Cole",
+			"popularity": 88,
+			"type": "artist",
+			"uri": "spotify:artist:6l3HvQ5sa6mXTsMTB19rO5"
+		},
+		{
+			"external_urls": {
+				"spotify": "https://open.spotify.com/artist/4r63FhuTkUYltbVAg5TQnk"
+			},
+			"followers": {
+				"href": null,
+				"total": 3644364
+			},
+			"genres": [ "north carolina hip hop", "rap" ],
+			"href": "https://api.spotify.com/v1/artists/4r63FhuTkUYltbVAg5TQnk",
+			"id": "4r63FhuTkUYltbVAg5TQnk",
+			"images": [
+				{
+					"height": 640,
+					"url": "https://i.scdn.co/image/f68192e6516d89a77a2b16904725a77b75b42056",
+					"width": 640
+				},
+				{
+					"height": 320,
+					"url": "https://i.scdn.co/image/f88e08cf9132c7facc2ee9fbdd1be3924b5c5a74",
+					"width": 320
+				},
+				{
+					"height": 160,
+					"url": "https://i.scdn.co/image/1b6dd2116962f6d9741d0181708e31006b5048a7",
+					"width": 160
+				}
+			],
+			"name": "DaBaby",
+			"popularity": 95,
+			"type": "artist",
+			"uri": "spotify:artist:4r63FhuTkUYltbVAg5TQnk"
+		},
+		{
+			"external_urls": {
+				"spotify": "https://open.spotify.com/artist/2h93pZq0e7k5yf4dywlkpM"
+			},
+			"followers": {
+				"href": null,
+				"total": 5992965
+			},
+			"genres": [ "alternative r&b", "hip hop", "lgbtq+ hip hop", "neo soul", "pop" ],
+			"href": "https://api.spotify.com/v1/artists/2h93pZq0e7k5yf4dywlkpM",
+			"id": "2h93pZq0e7k5yf4dywlkpM",
+			"images": [
+				{
+					"height": 640,
+					"url": "https://i.scdn.co/image/7db34c8aace6feb91f38601bb75e6b3301b4657a",
+					"width": 640
+				},
+				{
+					"height": 320,
+					"url": "https://i.scdn.co/image/0cc22250c0b18183e5c62f240a5756ec5226dee1",
+					"width": 320
+				},
+				{
+					"height": 160,
+					"url": "https://i.scdn.co/image/e42028e7fe5a7ba790b5b4e7b096b06bf3319443",
+					"width": 160
+				}
+			],
+			"name": "Frank Ocean",
+			"popularity": 86,
+			"type": "artist",
+			"uri": "spotify:artist:2h93pZq0e7k5yf4dywlkpM"
+		},
+		{
+			"external_urls": {
+				"spotify": "https://open.spotify.com/artist/3ycxRkcZ67ALN3GQJ57Vig"
+			},
+			"followers": {
+				"href": null,
+				"total": 615259
+			},
+			"genres": [ "alternative r&b", "indie soul" ],
+			"href": "https://api.spotify.com/v1/artists/3ycxRkcZ67ALN3GQJ57Vig",
+			"id": "3ycxRkcZ67ALN3GQJ57Vig",
+			"images": [
+				{
+					"height": 640,
+					"url": "https://i.scdn.co/image/a6c178d534df105c8697955ad7a398858d5bbbaa",
+					"width": 640
+				},
+				{
+					"height": 320,
+					"url": "https://i.scdn.co/image/389ea0061a1935ee9c3b3d0f4df55732247a3ec6",
+					"width": 320
+				},
+				{
+					"height": 160,
+					"url": "https://i.scdn.co/image/650e50931f30d9394648a5a75d6e925dfea9c10e",
+					"width": 160
+				}
+			],
+			"name": "Masego",
+			"popularity": 74,
+			"type": "artist",
+			"uri": "spotify:artist:3ycxRkcZ67ALN3GQJ57Vig"
+		},
+		{
+			"external_urls": {
+				"spotify": "https://open.spotify.com/artist/3QTDHixorJelOLxoxcjqGx"
+			},
+			"followers": {
+				"href": null,
+				"total": 351919
+			},
+			"genres": [ "alternative r&b", "hip hop", "indie r&b", "indie soul", "la pop", "rap" ],
+			"href": "https://api.spotify.com/v1/artists/3QTDHixorJelOLxoxcjqGx",
+			"id": "3QTDHixorJelOLxoxcjqGx",
+			"images": [
+				{
+					"height": 640,
+					"url": "https://i.scdn.co/image/ebb405d155a76d5a29704eb4c29235ffdcaf0e20",
+					"width": 640
+				},
+				{
+					"height": 320,
+					"url": "https://i.scdn.co/image/5b3ef1b5f4cc0b40b9bf7cfab70f6df4840210ef",
+					"width": 320
+				},
+				{
+					"height": 160,
+					"url": "https://i.scdn.co/image/d2826b5e272426afa3e64b2b5779ada5f66eeb07",
+					"width": 160
+				}
+			],
+			"name": "SiR",
+			"popularity": 72,
+			"type": "artist",
+			"uri": "spotify:artist:3QTDHixorJelOLxoxcjqGx"
+		},
+		{
+			"external_urls": {
+				"spotify": "https://open.spotify.com/artist/6qgnBH6iDM91ipVXv28OMu"
+			},
+			"followers": {
+				"href": null,
+				"total": 686609
+			},
+			"genres": [ "escape room", "indie soul", "lgbtq+ hip hop" ],
+			"href": "https://api.spotify.com/v1/artists/6qgnBH6iDM91ipVXv28OMu",
+			"id": "6qgnBH6iDM91ipVXv28OMu",
+			"images": [
+				{
+					"height": 640,
+					"url": "https://i.scdn.co/image/438d3d8b6dd3b5544407bc9b95121750799b4eb2",
+					"width": 640
+				},
+				{
+					"height": 320,
+					"url": "https://i.scdn.co/image/7397d7d5031c1ea250bc81ca993414a6fca6577a",
+					"width": 320
+				},
+				{
+					"height": 160,
+					"url": "https://i.scdn.co/image/f77a799efdd70f9abf2dac6e673f15886cdb8e5c",
+					"width": 160
+				}
+			],
+			"name": "KAYTRANADA",
+			"popularity": 74,
+			"type": "artist",
+			"uri": "spotify:artist:6qgnBH6iDM91ipVXv28OMu"
+		}
+	],
+	"total": 50,
+	"limit": 10,
+	"offset": 5,
+	"href": "https://api.spotify.com/v1/me/top/artists?limit=10&offset=5",
+	"previous": null,
+	"next": "https://api.spotify.com/v1/me/top/artists?limit=10&offset=15"
+}

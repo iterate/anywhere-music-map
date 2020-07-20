@@ -1,41 +1,73 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useEffect } from 'react'
+import styled, { keyframes } from 'styled-components'
 import FindFriends from './FindFriends'
 
-export const Content = ({ musicData, topArtistData, addFriendPage }) => {
-  console.log('musicdata', musicData)
-  console.log('topaeasodkwejfpewf', topArtistData)
+export const Content = ({
+  me,
+  friends,
+  personalData,
+  topArtistData,
+  addFriendPage
+}) => {
   return (
     <Container>
       {addFriendPage ? (
         <div>
-          <FindFriends />
+          <FindFriends personalData={personalData} />
         </div>
       ) : (
         <div>
           {' '}
           <Box>
             <h1>DISCOVER</h1>
-            <Titles>My top artists</Titles>
-            <Wrapper>
-              {topArtistData.items &&
-                topArtistData.items.map(
-                  (artist, index) =>
-                    index < 5 && (
-                      <ArtistBox>
-                        <img
-                          style={{
-                            width: '60px',
-                            height: '60px',
-                            borderRadius: '10px'
-                          }}
-                          src={artist.images[0].url}
-                        ></img>
-                        <ArtistTitle>{artist.name}</ArtistTitle>
-                      </ArtistBox>
-                    )
-                )}
-            </Wrapper>
+            <RowBox>
+              <Box>
+                <Titles>My top 5</Titles>
+                <Wrapper>
+                  {topArtistData.items &&
+                    topArtistData.items.map(
+                      (artist, index) =>
+                        index < 5 && (
+                          <ArtistBox key={index}>
+                            <img
+                              style={{
+                                width: '60px',
+                                height: '60px',
+                                borderRadius: '10px'
+                              }}
+                              src={artist.images[0].url}
+                            ></img>
+                            <ArtistTitle>{artist.name}</ArtistTitle>
+                          </ArtistBox>
+                        )
+                    )}
+                </Wrapper>
+              </Box>
+              {friends &&
+                friends.map((friend, key) => (
+                  <Box key={key}>
+                    <Titles>{friend && friend.userName}'s top 5</Titles>
+                    {friend &&
+                      friend.artists &&
+                      friend.artists.map(
+                        (artist, index) =>
+                          index < 5 && (
+                            <ArtistBox key={index.toString() + 'artistbox'}>
+                              <div
+                                style={{
+                                  width: '60px',
+                                  height: '60px',
+                                  borderRadius: '10px'
+                                }}
+                              ></div>
+                              <ArtistTitle>{artist}</ArtistTitle>
+                            </ArtistBox>
+                          )
+                      )}
+                  </Box>
+                ))}
+            </RowBox>
+
             <Titles>Based on your music taste</Titles>
           </Box>
         </div>
@@ -69,20 +101,25 @@ export const ArtistTitle = styled.p`
 export const Box = styled.div`
   display: flex;
   flex-direction: column;
+  width: 60vw;
+`
+export const RowBox = styled.div`
+  display: flex;
+  flex-direction: row;
 `
 
 export const Wrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  width: 50%;
+  flex-direction: column;
 `
 
 export const ArtistBox = styled.div`
   display: flex;
   flex-direction: row;
-  width: 400px;
   margin-right: 20px;
   border-radius: 10px;
   background-color: #333333;
   box-shadow: 5px 5px 15px #888888;
+  margin-bottom: 10px;
+  width: 90%;
 `

@@ -1,0 +1,28 @@
+{
+	"country": "NO",
+	"display_name": "Sherveer Singh Pannu",
+	"email": "sherveer@lifi.no",
+	"explicit_content": {
+		"filter_enabled": false,
+		"filter_locked": false
+	},
+	"external_urls": {
+		"spotify": "https://open.spotify.com/user/1144314543"
+	},
+	"followers": {
+		"href": null,
+		"total": 18
+	},
+	"href": "https://api.spotify.com/v1/users/1144314543",
+	"id": "1144314543",
+	"images": [
+		{
+			"height": null,
+			"url": "https://scontent-ams4-1.xx.fbcdn.net/v/t1.0-1/s320x320/34645098_10216720647276740_8255531857127407616_o.jpg?_nc_cat=107&_nc_sid=0c64ff&_nc_ohc=Ayrd40c_TBMAX-0KTbS&_nc_ht=scontent-ams4-1.xx&_nc_tp=7&oh=c08a4705817cda16d0385d9b05819905&oe=5F377CA5",
+			"width": null
+		}
+	],
+	"product": "premium",
+	"type": "user",
+	"uri": "spotify:user:1144314543"
+}
