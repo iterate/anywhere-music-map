@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import FindFriends from './FindFriends'
+import MusicProposals from './MusicProposals'
 
 export const Content = ({
   me,
@@ -11,10 +12,11 @@ export const Content = ({
 }) => {
   let FriendMap = new Map()
 
+  const [sortedArrayOfFriends, setSortedArrayOfFriends] = useState([])
   const matchFriends = () => {
     friends.forEach((friend, index) => {
       friend.artists.forEach(friendArtist => {
-        //if this artist is not already in the list where we compare artists
+        console.log('friend', friend)
         if (!FriendMap.has(friendArtist)) {
           FriendMap.set(friendArtist, [friend.userName])
         }
@@ -23,23 +25,28 @@ export const Content = ({
         }
       })
     })
-    console.log('FriendMap at end', FriendMap)
-    /* FriendMap.forEach((object, index) =>
-      console.log('what value is here?', object)
-    ) */
     let sorted = sortFriends()
-    console.log('sorted?', sorted)
+    console.log('friends?', friends)
+    setSortedArrayOfFriends(sorted)
   }
 
-  const sortFriends = () => {
-    console.log('length of firndmap', FriendMap, FriendMap.size)
+  const arrayOfFriends = []
+  //let sortedArrayOfFriends = []
 
-    for (let obj = 0; obj < FriendMap.size; obj++) {
-      console.log(FriendMap[obj])
-    }
-    /*  FriendMap.sort((a, b) => {
-      return a.length - b.length
-    }) */
+  const sortFriends = () => {
+    FriendMap.forEach((object, index) => {
+      const friendObject = {
+        artist: index,
+        listeners: object,
+        length: object.length
+      }
+      arrayOfFriends.push(friendObject)
+    })
+    let sorted = arrayOfFriends.sort((a, b) => {
+      return b.listeners.length - a.listeners.length
+    })
+    //sortedArrayOfFriends = sorted
+    return sorted
   }
 
   useEffect(() => {
@@ -82,13 +89,16 @@ export const Content = ({
               {friends &&
                 friends.map((friend, key) => (
                   <Box key={key}>
-                    <Titles>{friend && friend.userName}'s top 5</Titles>
+                    <Titles>{friend && friend.userName}</Titles>
                     {friend &&
                       friend.artists &&
                       friend.artists.map(
                         (artist, index) =>
                           index < 5 && (
-                            <ArtistBox key={index.toString() + 'artistbox'}>
+                            <ArtistBox
+                              color={friend.userName}
+                              key={index.toString() + 'artistbox'}
+                            >
                               <div
                                 style={{
                                   width: '60px',
@@ -96,7 +106,9 @@ export const Content = ({
                                   borderRadius: '10px'
                                 }}
                               ></div>
-                              <ArtistTitle>{artist}</ArtistTitle>
+                              <ArtistTitle color={friend.userName}>
+                                {artist}
+                              </ArtistTitle>
                             </ArtistBox>
                           )
                       )}
@@ -105,6 +117,7 @@ export const Content = ({
             </RowBox>
 
             <Titles>Based on your music taste</Titles>
+            <MusicProposals sortedArrayOfFriends={sortedArrayOfFriends} />
           </Box>
         </div>
       )}
@@ -128,7 +141,8 @@ export const Titles = styled.h2`
 `
 
 export const ArtistTitle = styled.p`
-  color: white;
+  background-color: ${props =>
+    props.color === 'Thusan Arul' ? 'grey' : 'white'}
   margin-left: 6%;
   font-size: 12px;
   margin-top: 10%;
@@ -154,7 +168,19 @@ export const ArtistBox = styled.div`
   flex-direction: row;
   margin-right: 20px;
   border-radius: 10px;
-  background-color: #333333;
+  background-color: ${props => {
+    if (props.color === 'sofie123') {
+      return '#16775E'
+    } else if (props.color === '1118536426') {
+      return '#FF7262'
+    } else if (props.color === 'josefine-madsen') {
+      return '#FF5FA2'
+    } else if (props.color === 'Thusan Arul') {
+      return '#ffffff'
+    } else {
+      return '#F2C94C'
+    }
+  }};
   box-shadow: 5px 5px 15px #888888;
   margin-bottom: 10px;
   width: 90%;

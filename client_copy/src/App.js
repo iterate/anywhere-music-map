@@ -20,7 +20,6 @@ function App () {
   const [friends, setFriends] = useState([])
 
   useEffect(() => {
-    console.log('me ', me)
     if (me.friends) {
       me.friends.forEach(friend => {
         users.forEach(user => {
@@ -32,9 +31,6 @@ function App () {
         })
       })
     }
-    console.log('FRIENDS', friends)
-    console.log('ME', me)
-    console.log('USERS', users)
   }, [me])
   let hashParams = {}
 
@@ -97,7 +93,9 @@ function App () {
         'Modjo',
         'The Killers',
         'No.4',
-        'Rihanna'
+        'Rihanna',
+        'Cezinando',
+        'The Weeknd'
       ],
       imageUrl: [
         'https://images.unsplash.com/photo-1464863979621-258859e62245?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'

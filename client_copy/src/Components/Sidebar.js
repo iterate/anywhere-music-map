@@ -62,8 +62,8 @@ export const Sidebar = ({
             ></img>
           </Container>
           <Container>
-            {/*             <button onClick={deleteUsers}>delete users</button>
-             */}
+            <button onClick={deleteUsers}>delete users</button>
+
             <H3>FILTER</H3>
             <form>
               <Wrapper>
@@ -106,8 +106,9 @@ export const Sidebar = ({
               {me &&
                 me.friends &&
                 me.friends.map((friend, index) => (
-                  <FriendBox key={index}>
+                  <FriendBox color={friend} key={index}>
                     <p>{friend}</p>
+                    {console.log('freind', friend)}
                   </FriendBox>
                 ))}
               <button
@@ -151,7 +152,22 @@ export const FriendBox = styled.div`
   height: 70px;
   margin-bottom: 10px;
   border-radius: 5px;
-  background-color: lightgrey;
+  border: solid 3px;
+  color: white;
+  text-align: center;
+  border-color: ${props => {
+    if (props.color === 'sofie123') {
+      return '#16775E'
+    } else if (props.color === '1118536426') {
+      return '#FF7262'
+    } else if (props.color === 'josefine-madsen') {
+      return '#FF5FA2'
+    } else if (props.color === 'Thusan Arul') {
+      return '#ffffff'
+    } else {
+      return '#F2C94C'
+    }
+  }};
 `
 
 export const H3 = styled.h3`
