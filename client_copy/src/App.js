@@ -39,7 +39,7 @@ function App() {
 	useEffect(() => {
 		axios
 			.post('http://localhost:8000/api/user', {
-				username: personalData.display_name,
+				username: personalData,
 				artists: topArtists
 			})
 			.then((res) => console.log('did it work?', res));
@@ -63,23 +63,20 @@ function App() {
 		//topArtist.map((artist) => console.log('artistname?', artist.name));
 		axios
 			.post('http://localhost:8000/api/user', {
-				username: personalData.display_name,
-				artists: artistList
+				username: personalData,
+				artists: topArtist
 			})
 			.then((res) => console.log('did it work?', res));
 	};
 
 	const getMe = async () => {
 		const access_t = getHashParams();
-		const result = await fetch(
-			`https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10&offset=5`,
-			{
-				method: 'GET',
-				headers: {
-					Authorization: 'Bearer ' + access_t
-				}
+		const result = await fetch(`https://api.spotify.com/v1/me/`, {
+			method: 'GET',
+			headers: {
+				Authorization: 'Bearer ' + access_t
 			}
-		);
+		});
 
 		if (access_t) {
 			spotifyWeb.setAccessToken(access_t);
@@ -103,7 +100,7 @@ function App() {
 	const getTopArtists = async () => {
 		const access_t = getHashParams();
 		const result = await fetch(
-			`https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10&offset=5`,
+			`https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=50&offset=5`,
 			{
 				method: 'GET',
 				headers: {
@@ -139,7 +136,22 @@ function App() {
 		img: String
 	};
 
-	const retriveUserAndMakeThemYourFriend = () => {};
+	const retriveUserAndMakeThemYourFriend = () => {
+		/* var user = require('map/client_copy/public/default_users/Sherveer-Singh-Pannu.json');
+		console.log(user); */
+		/* const sher = require('./Sherveer-Singh-Pannu.json');
+		console.log('sherveer ', sher);
+		console.log(sher.display_name);
+		const sher_artist = require('./Sherveer-Singh-Pannu-Artist.json');
+		console.log('sherveer artist', sher_artist);
+		console.log(sher_artist.items[0].name); */
+		/* $.getJSON('client_copy/public/default_users/Sherveer-Singh-Pannu.json', function(json) {
+			console.log(json); // this will show the info it in firebug console
+		}); */
+		/* var json = require('./data.json'); //(with path) */
+	};
+
+	retriveUserAndMakeThemYourFriend();
 
 	return (
 		<Container>
