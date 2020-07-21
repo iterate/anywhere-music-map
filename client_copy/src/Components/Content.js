@@ -89,7 +89,7 @@ export const Content = ({
               {friends &&
                 friends.map((friend, key) => (
                   <Box key={key}>
-                    <Titles>{friend && friend.userName}</Titles>
+                    <Titles>{friend && friend.userName.split(' ')[0]}</Titles>
                     {friend &&
                       friend.artists &&
                       friend.artists.map(
@@ -138,6 +138,7 @@ export const Titles = styled.h2`
   font-size: 20px;
   letter-spacing: 3px;
   text-transform: uppercase;
+  height: 50px;
 `
 
 export const ArtistTitle = styled.p`

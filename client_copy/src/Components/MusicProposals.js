@@ -4,18 +4,20 @@ import styled from 'styled-components'
 export const MusicProposals = ({ sortedArrayOfFriends }) => {
   console.log('musicproposals sorted', sortedArrayOfFriends)
   return (
-    <div>
+    <Flex>
       {sortedArrayOfFriends.map((friend, index) => (
-        <MusicBox key={index} width={friend.length}>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {friend.listeners.map((friendName, index) => (
-              <FriendBox color={friendName} />
-            ))}
-          </div>
-          <ArtistTitle>{friend.artist}</ArtistTitle>
-        </MusicBox>
+        <div style={{ display: 'inlineBlock' }}>
+          <MusicBox key={index} width={friend.length}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {friend.listeners.map((friendName, index) => (
+                <FriendBox color={friendName} />
+              ))}
+            </div>
+            <ArtistTitle>{friend.artist}</ArtistTitle>
+          </MusicBox>
+        </div>
       ))}
-    </div>
+    </Flex>
   )
 }
 
@@ -57,4 +59,13 @@ export const Text = styled.p`
 
 export const ArtistTitle = styled.p`
   margin-left: 25px;
+`
+
+export const Flex = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 600px;
+  overflow: auto;
+  white-space: nowrap;
 `
