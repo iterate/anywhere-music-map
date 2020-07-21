@@ -44,6 +44,9 @@ export const Sidebar = ({
       .delete('http://localhost:8000/api/users')
       .then(res => console.log('res', res))
   }
+
+  const hacklist = new Map()
+
   return (
     <Container width='20%' height='100vh'>
       {loggedIn && (
@@ -102,11 +105,18 @@ export const Sidebar = ({
               <H3>Network</H3>
               {me &&
                 me.friends &&
+                me.friends.map((friend, index) => {
+                  hacklist[friend.userName] = index
+                })}
+              {me &&
+                me.friends &&
                 me.friends.map((friend, index) => (
-                  <FriendBox color={friend.userName} key={index}>
+                  <FriendBox color={hacklist[friend.userName]} key={index}>
                     <p>{friend.userName}</p>
                   </FriendBox>
                 ))}
+              {console.log('skjer', hacklist)}
+              {console.log('sher4prez', hacklist['1118536426'])}
               <button
                 style={{
                   backgroundColor: '#333333',
@@ -152,13 +162,13 @@ export const FriendBox = styled.div`
   color: white;
   text-align: center;
   border-color: ${props => {
-    if (props.color === 'sofie123') {
+    if (props.color == 0) {
       return '#16775E'
-    } else if (props.color === '1118536426') {
+    } else if (props.color === 1) {
       return '#FF7262'
-    } else if (props.color === 'josefine-madsen') {
+    } else if (props.color === 2) {
       return '#FF5FA2'
-    } else if (props.color === 'Thusan Arul') {
+    } else if (props.color === 3) {
       return '#ffffff'
     } else {
       return '#F2C94C'

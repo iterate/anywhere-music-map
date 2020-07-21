@@ -19,6 +19,8 @@ function App () {
   const [users, setUsers] = useState([])
   const [friends, setFriends] = useState()
 
+  const ColorScheme = ['#16775E', '#FF7262', '#FF5FA2', '#F2C94C', '#ffffff']
+
   useEffect(() => {
     if (me.friends) {
       setFriends(me.friends)
@@ -42,6 +44,25 @@ function App () {
     getMe()
     getTopArtists()
   }, [])
+
+  /* useEffect(() => {
+    const friendObj = []
+    me &&
+      me.friends &&
+      me.friends.forEach((friend, index) => {
+        const i = {
+          friend: friend.userName,
+          index: index
+        }
+        friendObj.push(i)
+      })
+    console.log('friendObj', friendObj)
+    console.log(
+      'friend name',
+      friendObj.find(x => (x.friend = '1118536426'))
+    )
+    setFriendToIndexMap(friendObj)
+  }, [me, friends]) */
 
   useEffect(() => {
     checkedOption === 'friendsfavorites' && setAddFriendPage(false)
@@ -71,33 +92,6 @@ function App () {
     }
   }
 
-  /* const createFakeUser = () => {
-    axios.post('http://localhost:8000/api/user', {
-      userName: 'sofie123',
-      artists: [
-        'Dua Lipa',
-        'Metallica',
-        'Miley Cyrus',
-        'DJ Fresh',
-        'Basshunter',
-        'Sam Smith',
-        'John Mayer',
-        'Astrid S',
-        'Sigrid',
-        'Aqua',
-        'Madcon',
-        'Modjo',
-        'The Killers',
-        'No.4',
-        'Rihanna',
-        'Cezinando',
-        'The Weeknd'
-      ],
-      imageUrl: [
-        'https://images.unsplash.com/photo-1464863979621-258859e62245?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'
-      ]
-    })
-  } */
   const getMe = async () => {
     const access_t = getHashParams()
     const result = await fetch(

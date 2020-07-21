@@ -13,6 +13,7 @@ export const Content = ({
   let FriendMap = new Map()
 
   const [sortedArrayOfFriends, setSortedArrayOfFriends] = useState([])
+
   const matchFriends = () => {
     friends &&
       friends.forEach((friend, index) => {
@@ -29,25 +30,25 @@ export const Content = ({
     setSortedArrayOfFriends(sorted)
   }
 
-  const arrayOfFriends = []
+  const arrayOfArtists = []
   //let sortedArrayOfFriends = []
 
   const sortFriends = () => {
     FriendMap.forEach((object, index) => {
-      const friendObject = {
+      const artistObject = {
         artist: index,
         listeners: object,
         length: object.length
       }
-      arrayOfFriends.push(friendObject)
+      arrayOfArtists.push(artistObject)
     })
-    let sorted = arrayOfFriends.sort((a, b) => {
+    let sorted = arrayOfArtists.sort((a, b) => {
       return b.listeners.length - a.listeners.length
     })
     //sortedArrayOfFriends = sorted
     return sorted
   }
-
+  const hacklist = new Map()
   useEffect(() => {
     matchFriends()
   }, [me, friends])
@@ -79,15 +80,22 @@ export const Content = ({
                               }}
                               src={artist.images[0].url}
                             ></img>
-                            <ArtistTitle>{artist.name}</ArtistTitle>
+                            <ArtistTitle color={'me'}>
+                              {artist.name}
+                            </ArtistTitle>
                           </ArtistBox>
                         )
                     )}
                 </Wrapper>
               </Box>
+              {me &&
+                me.friends &&
+                me.friends.map((friend, index) => {
+                  hacklist[friend.userName] = index
+                })}
               {friends &&
-                friends.map((friend, key) => (
-                  <Box key={key}>
+                friends.map((friend, friendIndex) => (
+                  <Box key={friendIndex}>
                     <Titles>{friend && friend.userName}</Titles>
                     {friend &&
                       friend.artists &&
@@ -95,7 +103,7 @@ export const Content = ({
                         (artist, index) =>
                           index < 5 && (
                             <ArtistBox
-                              color={friend.userName}
+                              color={hacklist[friend.userName]}
                               key={index.toString() + 'artistbox'}
                             >
                               <img
@@ -106,9 +114,7 @@ export const Content = ({
                                 }}
                                 src={artist.images[0].url}
                               ></img>
-                              <ArtistTitle color={friend.userName}>
-                                {artist.name}
-                              </ArtistTitle>
+                              <ArtistTitle>{artist.name}</ArtistTitle>
                             </ArtistBox>
                           )
                       )}
@@ -117,7 +123,10 @@ export const Content = ({
             </RowBox>
 
             <Titles>Based on your music taste</Titles>
-            <MusicProposals sortedArrayOfFriends={sortedArrayOfFriends} />
+            <MusicProposals
+              me={me}
+              sortedArrayOfFriends={sortedArrayOfFriends}
+            />
           </Box>
         </div>
       )}
@@ -142,8 +151,7 @@ export const Titles = styled.h2`
 `
 
 export const ArtistTitle = styled.p`
-  background-color: ${props =>
-    props.color === 'Thusan Arul' ? 'grey' : 'white'}
+  color: ${props => (props.color === 'me' ? 'black' : 'white')};
   margin-left: 6%;
   font-size: 12px;
   margin-top: 10%;
@@ -170,13 +178,13 @@ export const ArtistBox = styled.div`
   margin-right: 20px;
   border-radius: 10px;
   background-color: ${props => {
-    if (props.color === 'sofie123') {
+    if (props.color == 0) {
       return '#16775E'
-    } else if (props.color === '1118536426') {
+    } else if (props.color === 1) {
       return '#FF7262'
-    } else if (props.color === 'josefine-madsen') {
+    } else if (props.color === 2) {
       return '#FF5FA2'
-    } else if (props.color === 'Thusan Arul') {
+    } else if (props.color === 3) {
       return '#ffffff'
     } else {
       return '#F2C94C'

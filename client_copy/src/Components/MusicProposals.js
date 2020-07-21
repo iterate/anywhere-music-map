@@ -1,15 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export const MusicProposals = ({ sortedArrayOfFriends }) => {
+export const MusicProposals = ({ me, sortedArrayOfFriends }) => {
+  const hacklist = new Map()
   return (
     <Flex>
-      {sortedArrayOfFriends.map((friend, index) => (
-        <div key={index} style={{ display: 'inlineBlock' }}>
+      {me &&
+        me.friends &&
+        me.friends.map((friend, index) => {
+          hacklist[friend.userName] = index
+        })}
+      {sortedArrayOfFriends.map((friend, friendIndex) => (
+        <div key={friendIndex} style={{ display: 'inlineBlock' }}>
           <MusicBox key={friend.length} width={friend.length}>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               {friend.listeners.map((friendName, index) => (
-                <FriendBox key={friendName} color={friendName} />
+                <FriendBox key={friendName} color={hacklist[friendName]} />
               ))}
             </div>
             <ArtistTitle>{friend.artist}</ArtistTitle>
@@ -38,13 +44,13 @@ export const FriendBox = styled.div`
   width: 20px;
   height: 40px;
   background-color: ${props => {
-    if (props.color === 'sofie123') {
+    if (props.color == 0) {
       return '#16775E'
-    } else if (props.color === '1118536426') {
+    } else if (props.color === 1) {
       return '#FF7262'
-    } else if (props.color === 'josefine-madsen') {
+    } else if (props.color === 2) {
       return '#FF5FA2'
-    } else if (props.color === 'Thusan Arul') {
+    } else if (props.color === 3) {
       return '#ffffff'
     } else {
       return '#F2C94C'
