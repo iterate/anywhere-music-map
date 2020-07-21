@@ -115,8 +115,6 @@ export const Sidebar = ({
                     <p>{friend.userName}</p>
                   </FriendBox>
                 ))}
-              {console.log('skjer', hacklist)}
-              {console.log('sher4prez', hacklist['1118536426'])}
               <button
                 style={{
                   backgroundColor: '#333333',

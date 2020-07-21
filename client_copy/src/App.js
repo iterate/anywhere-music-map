@@ -45,25 +45,6 @@ function App () {
     getTopArtists()
   }, [])
 
-  /* useEffect(() => {
-    const friendObj = []
-    me &&
-      me.friends &&
-      me.friends.forEach((friend, index) => {
-        const i = {
-          friend: friend.userName,
-          index: index
-        }
-        friendObj.push(i)
-      })
-    console.log('friendObj', friendObj)
-    console.log(
-      'friend name',
-      friendObj.find(x => (x.friend = '1118536426'))
-    )
-    setFriendToIndexMap(friendObj)
-  }, [me, friends]) */
-
   useEffect(() => {
     checkedOption === 'friendsfavorites' && setAddFriendPage(false)
   }, [checkedOption])
