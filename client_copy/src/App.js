@@ -17,19 +17,11 @@ function App () {
   const [addFriendPage, setAddFriendPage] = useState(false)
   const [me, setMe] = useState({})
   const [users, setUsers] = useState([])
-  const [friends, setFriends] = useState([])
+  const [friends, setFriends] = useState()
 
   useEffect(() => {
     if (me.friends) {
-      me.friends.forEach(friend => {
-        users.forEach(user => {
-          if (user.userName === friend) {
-            const newFriends = [...friends, user]
-            setFriends(newFriends)
-            friends.push(user)
-          }
-        })
-      })
+      setFriends(me.friends)
     }
   }, [me])
   let hashParams = {}
@@ -59,7 +51,6 @@ function App () {
 
   useEffect(() => {
     createUser()
-    createFakeUser()
   }, [personalData, topArtists])
 
   const createUser = () => {
@@ -67,15 +58,20 @@ function App () {
       personalData.display_name &&
       (topArtists.items && topArtists.items.length) > 1
     ) {
-      axios.post('http://localhost:8000/api/user', {
-        userName: personalData.display_name,
-        artists: topArtists.items.map(artist => artist.name),
-        imageUrl: personalData.images && personalData.images[0].url
-      })
+      axios
+        .post('http://localhost:8000/api/user', {
+          userName: personalData.display_name,
+          artists: topArtists.items.map(artist => artist),
+          imageUrl:
+            personalData.images &&
+            personalData.images[0] &&
+            personalData.images[0].url
+        })
+        .then(res => console.log('user result', res))
     }
   }
 
-  const createFakeUser = () => {
+  /* const createFakeUser = () => {
     axios.post('http://localhost:8000/api/user', {
       userName: 'sofie123',
       artists: [
@@ -101,7 +97,7 @@ function App () {
         'https://images.unsplash.com/photo-1464863979621-258859e62245?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'
       ]
     })
-  }
+  } */
   const getMe = async () => {
     const access_t = getHashParams()
     const result = await fetch(

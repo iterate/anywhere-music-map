@@ -2,15 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 
 export const MusicProposals = ({ sortedArrayOfFriends }) => {
-  console.log('musicproposals sorted', sortedArrayOfFriends)
   return (
     <Flex>
       {sortedArrayOfFriends.map((friend, index) => (
-        <div style={{ display: 'inlineBlock' }}>
-          <MusicBox key={index} width={friend.length}>
+        <div key={index} style={{ display: 'inlineBlock' }}>
+          <MusicBox key={friend.length} width={friend.length}>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               {friend.listeners.map((friendName, index) => (
-                <FriendBox color={friendName} />
+                <FriendBox key={friendName} color={friendName} />
               ))}
             </div>
             <ArtistTitle>{friend.artist}</ArtistTitle>

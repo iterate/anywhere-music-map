@@ -11,9 +11,7 @@ export const Sidebar = ({
   me,
   setMe,
   users,
-  setUsers,
-  friends,
-  setFriends
+  setUsers
 }) => {
   const handleOptionChange = e => {
     setCheckedOption(e.target.value)
@@ -102,13 +100,11 @@ export const Sidebar = ({
             </form>
             <Container>
               <H3>Network</H3>
-
               {me &&
                 me.friends &&
                 me.friends.map((friend, index) => (
-                  <FriendBox color={friend} key={index}>
-                    <p>{friend}</p>
-                    {console.log('freind', friend)}
+                  <FriendBox color={friend.userName} key={index}>
+                    <p>{friend.userName}</p>
                   </FriendBox>
                 ))}
               <button

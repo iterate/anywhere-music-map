@@ -14,19 +14,18 @@ export const Content = ({
 
   const [sortedArrayOfFriends, setSortedArrayOfFriends] = useState([])
   const matchFriends = () => {
-    friends.forEach((friend, index) => {
-      friend.artists.forEach(friendArtist => {
-        console.log('friend', friend)
-        if (!FriendMap.has(friendArtist)) {
-          FriendMap.set(friendArtist, [friend.userName])
-        }
-        if (!FriendMap.get(friendArtist).includes(friend.userName)) {
-          FriendMap.get(friendArtist).push(friend.userName)
-        }
+    friends &&
+      friends.forEach((friend, index) => {
+        friend.artists.forEach(friendArtist => {
+          if (!FriendMap.has(friendArtist.name)) {
+            FriendMap.set(friendArtist.name, [friend.userName])
+          }
+          if (!FriendMap.get(friendArtist.name).includes(friend.userName)) {
+            FriendMap.get(friendArtist.name).push(friend.userName)
+          }
+        })
       })
-    })
     let sorted = sortFriends()
-    console.log('friends?', friends)
     setSortedArrayOfFriends(sorted)
   }
 
@@ -89,7 +88,7 @@ export const Content = ({
               {friends &&
                 friends.map((friend, key) => (
                   <Box key={key}>
-                    <Titles>{friend && friend.userName.split(' ')[0]}</Titles>
+                    <Titles>{friend && friend.userName}</Titles>
                     {friend &&
                       friend.artists &&
                       friend.artists.map(
@@ -99,15 +98,16 @@ export const Content = ({
                               color={friend.userName}
                               key={index.toString() + 'artistbox'}
                             >
-                              <div
+                              <img
                                 style={{
                                   width: '60px',
                                   height: '60px',
                                   borderRadius: '10px'
                                 }}
-                              ></div>
+                                src={artist.images[0].url}
+                              ></img>
                               <ArtistTitle color={friend.userName}>
-                                {artist}
+                                {artist.name}
                               </ArtistTitle>
                             </ArtistBox>
                           )

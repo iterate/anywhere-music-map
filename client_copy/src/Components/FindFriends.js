@@ -5,7 +5,7 @@ import axios from 'axios'
 export const FindFriends = ({ personalData }) => {
   //hente ut folk som er lagret i databasen og legge til
   const [users, setUsers] = useState([])
-  const [me, setMe] = useState()
+  //const [me, setMe] = useState()
   const getUsers = () => {
     axios.get('http://localhost:8000/api/user').then(res => {
       setUsers(res.data.data)
@@ -15,9 +15,9 @@ export const FindFriends = ({ personalData }) => {
     getUsers()
   }, [])
 
-  const addFriend = userName => {
+  const addFriend = user => {
     axios.put('http://localhost:8000/api/user/' + personalData.display_name, {
-      friends: userName
+      friends: user
     })
   }
   return (
@@ -28,7 +28,7 @@ export const FindFriends = ({ personalData }) => {
         users.map(user => (
           <div>
             <p>{user.userName}</p>
-            <button onClick={() => addFriend(user.userName)}>add</button>
+            <button onClick={() => addFriend(user)}>add</button>
           </div>
         ))}
     </div>
