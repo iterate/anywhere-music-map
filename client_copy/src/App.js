@@ -18,7 +18,7 @@ function App () {
   const [me, setMe] = useState({})
   const [users, setUsers] = useState([])
   const [friends, setFriends] = useState()
-
+  const [addFriend, setAddFriend] = useState(false)
   const ColorScheme = ['#16775E', '#FF7262', '#FF5FA2', '#F2C94C', '#ffffff']
 
   useEffect(() => {
@@ -138,7 +138,7 @@ function App () {
 
   return (
     <Container>
-      <Header />
+      <Header setAddFriendPage={setAddFriendPage} />
       <Wrapper>
         <Sidebar
           setCheckedOption={setCheckedOption}
@@ -146,6 +146,7 @@ function App () {
           loggedIn={loggedIn}
           personalData={personalData}
           setAddFriendPage={setAddFriendPage}
+          setAddFriend={setAddFriend}
           me={me}
           setMe={setMe}
           users={users}
@@ -154,6 +155,8 @@ function App () {
           setFriends={setFriends}
           artistMap={artistMap}
           personMap={personMap}
+          addFriend={addFriend}
+          setAddFriend={setAddFriend}
         />
         <Wrapper>
           <script src='https://sdk.scdn.co/spotify-player.js' />
@@ -169,6 +172,8 @@ function App () {
                 friends={friends}
                 artistMap={artistMap}
                 personMap={personMap}
+                setAddFriend={setAddFriend}
+                addFriend={addFriend}
               />
             ) : (
               <div style={{ padding: '10%' }}>

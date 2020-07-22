@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export const Header = () => {
+export const Header = ({ setAddFriendPage }) => {
   return (
     <Container>
-      <H1>anywhere</H1>
+      <H1 onClick={() => setAddFriendPage(false)}>anywhere</H1>
     </Container>
   )
 }

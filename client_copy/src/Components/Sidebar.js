@@ -13,7 +13,9 @@ export const Sidebar = ({
   users,
   setUsers,
   artistMap,
-  personMap
+  personMap,
+  addFriend,
+  setAddFriend
 }) => {
   const handleOptionChange = e => {
     setCheckedOption(e.target.value)
@@ -37,7 +39,7 @@ export const Sidebar = ({
 
   useEffect(() => {
     getUsers()
-  }, [])
+  }, [setAddFriend])
 
   useEffect(() => {
     if (users) {
@@ -46,7 +48,7 @@ export const Sidebar = ({
         personMap[user.userName] = user.imgUrl
       })
     }
-  }, [users, personalData, me])
+  }, [users, personalData, me, addFriend])
 
   const deleteUsers = () => {
     axios
@@ -63,6 +65,7 @@ export const Sidebar = ({
           <Container>
             <H3>PROFILE</H3>
             <img
+              onClick={() => setAddFriendPage(false)}
               style={{ width: '70px', height: '70px', borderRadius: '50%' }}
               src={
                 personalData.images &&

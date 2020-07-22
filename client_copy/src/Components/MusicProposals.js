@@ -16,7 +16,11 @@ export const MusicProposals = ({ artistMap, me, sortedArrayOfFriends }) => {
             <Image src={artistMap[friend.artist]}></Image>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               {friend.listeners.map((friendName, index) => (
-                <FriendBox key={friendName} color={hacklist[friendName]} />
+                <FriendBox
+                  width={friend.length}
+                  key={friendName}
+                  color={hacklist[friendName]}
+                />
               ))}
             </div>
             <ArtistTitle>{friend.artist}</ArtistTitle>
@@ -55,7 +59,8 @@ export const MusicBox = styled.div`
   background-color: #333333;
   color: white;
   border-radius: 5px;
-  height: ${props => props.width * 40 + 'px'};
+  height: ${props =>
+    props.width === 1 ? props.width * 50 + 'px' : props.width * 40 + 'px'};
   padding: 2px;
   margin: 2px;
   display: flex;
@@ -75,7 +80,8 @@ export const MusicBox = styled.div`
 
 export const FriendBox = styled.div`
   width: 20px;
-  height: 40px;
+  height: 50px;
+  height: ${props => (props.width === 1 ? 50 + 'px' : 40 + 'px')};
   background-color: ${props => {
     if (props.color == 0) {
       return '#16775E'

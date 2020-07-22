@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 
-export const FindFriends = ({ me, personalData }) => {
+export const FindFriends = ({
+  friends,
+  setAddFriend,
+  me,
+  addFriend,
+  personalData
+}) => {
   //hente ut folk som er lagret i databasen og legge til
   const [users, setUsers] = useState([])
   const [added, setAdded] = useState()
@@ -34,25 +40,39 @@ export const FindFriends = ({ me, personalData }) => {
   }, [me, users, me.friends])
 
   let f = false
-  const addFriend = user => {
-    axios.put('http://localhost:8000/api/user/' + personalData.display_name, {
-      friends: user
-    })
+  const addFriendToUser = user => {
+    console.log('user', user)
+    /*     user.userName
+     */ friends.forEach(friend =>
+      friend.userName === user.userName
+        ? false
+        : axios
+            .put(
+              'http://localhost:8000/api/user/' + personalData.display_name,
+              {
+                friends: user
+              }
+            )
+            .then(setAddFriend(!addFriend))
+    )
   }
 
   return (
     <div>
       <h1>Add Users</h1>
-      <h2>USERS: </h2>
+      {/*       <h2>USERS: </h2>
+       */}{' '}
       {users &&
         users.map(
           (user, index) =>
             user.userName !== me.userName && (
               <div key={index}>
-                <p>{user.userName}</p>
+                <Text>{user.userName}</Text>
 
                 {myFriends && !myFriends.includes(user.userName) && (
-                  <button onClick={() => addFriend(user)}>add</button>
+                  <Button onClick={() => addFriendToUser(user)}>
+                    Add user
+                  </Button>
                 )}
               </div>
             )
@@ -62,3 +82,26 @@ export const FindFriends = ({ me, personalData }) => {
 }
 
 export default FindFriends
+
+export const Button = styled.button`
+  width: 140px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: #ff5fa2;
+  box-shadow: 5px 5px 15px #888888;
+  border-color: #ff5fa2;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: white;
+  transition: 0.5s ease;
+  outline: none;
+  &: hover {
+    letter-spacing: 5px;
+  }
+`
+export const Text = styled.p`
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+`

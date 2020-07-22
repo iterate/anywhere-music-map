@@ -9,7 +9,9 @@ export const Content = ({
   personalData,
   topArtistData,
   addFriendPage,
-  artistMap
+  artistMap,
+  addFriend,
+  setAddFriend
 }) => {
   let FriendMap = new Map()
 
@@ -59,7 +61,13 @@ export const Content = ({
     <Container>
       {addFriendPage ? (
         <div>
-          <FindFriends me={me} personalData={personalData} />
+          <FindFriends
+            addFriend={addFriend}
+            me={me}
+            setAddFriend={setAddFriend}
+            personalData={personalData}
+            friends={friends}
+          />
         </div>
       ) : (
         <div>
