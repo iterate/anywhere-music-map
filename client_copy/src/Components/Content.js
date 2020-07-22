@@ -8,7 +8,8 @@ export const Content = ({
   friends,
   personalData,
   topArtistData,
-  addFriendPage
+  addFriendPage,
+  artistMap
 }) => {
   let FriendMap = new Map()
 
@@ -32,6 +33,7 @@ export const Content = ({
 
   const arrayOfArtists = []
   //let sortedArrayOfFriends = []
+  //const artistMap = new Map()
 
   const sortFriends = () => {
     FriendMap.forEach((object, index) => {
@@ -56,16 +58,17 @@ export const Content = ({
     <Container>
       {addFriendPage ? (
         <div>
-          <FindFriends personalData={personalData} />
+          <FindFriends me={me} personalData={personalData} />
         </div>
       ) : (
         <div>
           {' '}
           <Box>
             <h1>DISCOVER</h1>
+            <h2>TOP 5</h2>
             <RowBox>
               <Box>
-                <Titles>My top 5</Titles>
+                <Titles>ME</Titles>
                 <Wrapper>
                   {topArtistData.items &&
                     topArtistData.items.map(
@@ -122,9 +125,10 @@ export const Content = ({
                 ))}
             </RowBox>
 
-            <Titles>Based on your music taste</Titles>
+            <h2>BASED ON YOUR FRIENDS' MUSIC TASTE</h2>
             <MusicProposals
               me={me}
+              artistMap={artistMap}
               sortedArrayOfFriends={sortedArrayOfFriends}
             />
           </Box>
@@ -144,17 +148,20 @@ export const Container = styled.div`
 export const Titles = styled.h2`
   color: #333333;
   font-family: arial;
-  font-size: 20px;
+  font-size: 14px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  height: 50px;
+  height: 30px;
 `
 
 export const ArtistTitle = styled.p`
   color: ${props => (props.color === 'me' ? 'black' : 'white')};
-  margin-left: 6%;
-  font-size: 12px;
-  margin-top: 10%;
+  margin-left: 15px;
+  align-self: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 10px;
+  font-family: arial;
 `
 
 export const Box = styled.div`
@@ -193,4 +200,11 @@ export const ArtistBox = styled.div`
   box-shadow: 5px 5px 15px #888888;
   margin-bottom: 10px;
   width: 90%;
+
+  transform: scale(1, 1);
+  transition: 0.7s;
+  &:hover {
+    transform: scale(1.3, 1.3);
+    z-index: 1;
+  }
 `

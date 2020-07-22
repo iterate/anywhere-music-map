@@ -76,7 +76,7 @@ function App () {
   const getMe = async () => {
     const access_t = getHashParams()
     const result = await fetch(
-      `https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10&offset=5`,
+      `https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=30&offset=5`,
       {
         method: 'GET',
         headers: {
@@ -103,10 +103,13 @@ function App () {
     return data.items
   }
 
+  //const artistMap = new Map()
+  const [artistMap, setArtistMap] = useState(new Map())
+  const [personMap, setPersonMap] = useState(new Map())
   const getTopArtists = async () => {
     const access_t = getHashParams()
     const result = await fetch(
-      `https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10&offset=5`,
+      `https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=30&offset=5`,
       {
         method: 'GET',
         headers: {
@@ -121,7 +124,7 @@ function App () {
         .getMyTopArtists() // note that we don't pass a user id
         .then(
           function (data) {
-            setTopArtists(data)
+            //setTopArtists(data)
           },
           function (err) {
             console.error(err)
@@ -129,6 +132,7 @@ function App () {
         )
     }
     let data = await result.json()
+    setTopArtists(data)
     return data.items
   }
 
@@ -148,6 +152,8 @@ function App () {
           setUsers={setUsers}
           friends={friends}
           setFriends={setFriends}
+          artistMap={artistMap}
+          personMap={personMap}
         />
         <Wrapper>
           <script src='https://sdk.scdn.co/spotify-player.js' />
@@ -161,6 +167,8 @@ function App () {
                 users={users}
                 me={me}
                 friends={friends}
+                artistMap={artistMap}
+                personMap={personMap}
               />
             ) : (
               <div style={{ padding: '10%' }}>

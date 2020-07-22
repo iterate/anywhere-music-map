@@ -11,15 +11,23 @@ export const Sidebar = ({
   me,
   setMe,
   users,
-  setUsers
+  setUsers,
+  artistMap,
+  personMap
 }) => {
   const handleOptionChange = e => {
     setCheckedOption(e.target.value)
   }
 
+  //const artistMap = new Map()
   const getUsers = async () => {
     await axios.get('http://localhost:8000/api/user').then(res => {
       setUsers(res.data.data)
+      res.data.data.forEach(user => {
+        user.artists.forEach(artist => {
+          artistMap[artist.name] = artist.images[0].url
+        })
+      })
     })
   }
 
@@ -33,11 +41,15 @@ export const Sidebar = ({
 
   useEffect(() => {
     if (users) {
-      users.forEach(
-        user => user.userName === personalData.display_name && setMe(user)
-      )
+      users.forEach(user => {
+        user.userName === personalData.display_name && setMe(user)
+        //user.friends.forEach(friend => console.log('frieeeend', friend))
+        //personMap[user.userName] = user.img)
+        console.log('user', user)
+        console.log('me', personalData)
+      })
     }
-  }, [users, personalData])
+  }, [users, personalData, me])
 
   const deleteUsers = () => {
     axios
@@ -63,13 +75,13 @@ export const Sidebar = ({
             ></img>
           </Container>
           <Container>
-            <button onClick={deleteUsers}>delete users</button>
-
+            {/*             <button onClick={deleteUsers}>delete users</button>
+             */}
             <H3>FILTER</H3>
             <form>
               <Wrapper>
                 <label style={{ color: 'white', width: '200px' }}>
-                  <input
+                  <Radio
                     type='radio'
                     value='myfavorites'
                     checked={checkedOption === 'myfavorites'}
@@ -80,7 +92,7 @@ export const Sidebar = ({
               </Wrapper>
               <div className='radio'>
                 <label style={{ color: 'white', width: '200px' }}>
-                  <input
+                  <Radio
                     type='radio'
                     value='globalfavorites'
                     checked={checkedOption === 'globalfavorites'}
@@ -91,7 +103,7 @@ export const Sidebar = ({
               </div>
               <div className='radio'>
                 <label style={{ color: 'white', width: '200px' }}>
-                  <input
+                  <Radio
                     type='radio'
                     value='friendsfavorites'
                     checked={checkedOption === 'friendsfavorites'}
@@ -102,7 +114,7 @@ export const Sidebar = ({
               </div>
             </form>
             <Container>
-              <H3>Network</H3>
+              <H3>Network</H3>¨{' '}
               {me &&
                 me.friends &&
                 me.friends.map((friend, index) => {
@@ -149,6 +161,7 @@ export const Container = styled.div`
   height: ${props => props.height};
   margin-left: 3%;
   margin-right: 3%;
+  align-items: flex-start;
 `
 
 export const FriendBox = styled.div`
@@ -191,4 +204,11 @@ export const Category = styled.p`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
+`
+
+export const Radio = styled.input`
+  color: 'green';
+  border: solid 3px;
+  border-color: 'red';
+  background-color: 'red';
 `
