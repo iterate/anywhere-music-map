@@ -8,16 +8,21 @@ export const Content = ({
   friends,
   personalData,
   topArtistData,
-  addFriendPage
+  addFriendPage,
+  users
 }) => {
   let FriendMap = new Map()
 
   const [sortedArrayOfFriends, setSortedArrayOfFriends] = useState([])
 
   const matchFriends = () => {
+    console.log('F', friends)
     friends &&
       friends.forEach((friend, index) => {
+        console.log('<333333', friend)
+
         friend.artists.forEach(friendArtist => {
+          console.log('<333333', friendArtist)
           if (!FriendMap.has(friendArtist.name)) {
             FriendMap.set(friendArtist.name, [friend.userName])
           }
@@ -56,7 +61,7 @@ export const Content = ({
     <Container>
       {addFriendPage ? (
         <div>
-          <FindFriends personalData={personalData} />
+          <FindFriends personalData={personalData} me={me} allUsers={users} />
         </div>
       ) : (
         <div>
@@ -122,7 +127,7 @@ export const Content = ({
                 ))}
             </RowBox>
 
-            <Titles>Based on your music taste</Titles>
+            <Titles>Based on your friends' taste</Titles>
             <MusicProposals
               me={me}
               sortedArrayOfFriends={sortedArrayOfFriends}
