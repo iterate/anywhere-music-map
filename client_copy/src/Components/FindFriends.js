@@ -21,12 +21,14 @@ export const FindFriends = ({ me, personalData }) => {
   const m = new Map()
   useEffect(() => {
     users.forEach(user => {
-      me.friends.forEach(friend => {
-        if (user.userName === friend.userName) {
-          myFriends.push(user.userName)
-          //setMyFriends([...myFriends, user.userName])
-        }
-      })
+      me &&
+        me.friends &&
+        me.friends.forEach(friend => {
+          if (user.userName === friend.userName) {
+            myFriends.push(user.userName)
+            //setMyFriends([...myFriends, user.userName])
+          }
+        })
     })
     console.log('users', users)
   }, [me, users, me.friends])

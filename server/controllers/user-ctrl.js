@@ -93,6 +93,12 @@ deleteUser = async (req, res) => {
 
 deleteAllUsers = async (req, res) => {
   //sofie123
+  //1118536426
+  //Sherveer Singh Pannu
+  //Philip Dahlstrøm
+  //Thusan Arul'
+  //josefine-madsen
+
   await User.deleteMany({ userName: '1118536426' }, (err, user) => {
     if (err) {
       return res.status(400).json({ success: false, error: err })

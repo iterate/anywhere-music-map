@@ -64,7 +64,7 @@ function App () {
         .post('http://localhost:8000/api/user', {
           userName: personalData.display_name,
           artists: topArtists.items.map(artist => artist),
-          imageUrl:
+          imgUrl:
             personalData.images &&
             personalData.images[0] &&
             personalData.images[0].url

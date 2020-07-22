@@ -41,6 +41,7 @@ export const Image = styled.img`
   transition: 1.5s ease;
   object-fit: cover;
   opacity: 0.7;
+  border-radius: 5px;
 `
 export const ArtistTitle = styled.p`
   margin-left: 15px;

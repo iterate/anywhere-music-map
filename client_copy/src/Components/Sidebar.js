@@ -43,10 +43,7 @@ export const Sidebar = ({
     if (users) {
       users.forEach(user => {
         user.userName === personalData.display_name && setMe(user)
-        //user.friends.forEach(friend => console.log('frieeeend', friend))
-        //personMap[user.userName] = user.img)
-        console.log('user', user)
-        console.log('me', personalData)
+        personMap[user.userName] = user.imgUrl
       })
     }
   }, [users, personalData, me])
@@ -113,8 +110,8 @@ export const Sidebar = ({
                 </label>
               </div>
             </form>
-            <Container>
-              <H3>Network</H3>¨{' '}
+            <Container width={'100%'}>
+              <H3>Network</H3>{' '}
               {me &&
                 me.friends &&
                 me.friends.map((friend, index) => {
@@ -123,15 +120,25 @@ export const Sidebar = ({
               {me &&
                 me.friends &&
                 me.friends.map((friend, index) => (
-                  <FriendBox color={hacklist[friend.userName]} key={index}>
-                    <p>{friend.userName}</p>
-                  </FriendBox>
+                  <FlexBox>
+                    <FriendBox color={hacklist[friend.userName]} key={index}>
+                      {personMap[friend.userName] ? (
+                        <Image src={personMap[friend.userName]} />
+                      ) : (
+                        <p>friend.userName</p>
+                      )}
+                    </FriendBox>
+                    <div style={{ marginLeft: '5px' }}>
+                      <Text>{friend.userName}</Text>
+                    </div>
+                  </FlexBox>
                 ))}
               <button
                 style={{
                   backgroundColor: '#333333',
                   border: 'none',
-                  outline: 'none'
+                  outline: 'none',
+                  padding: '0px'
                 }}
                 onClick={addFriends}
               >
@@ -165,13 +172,17 @@ export const Container = styled.div`
 `
 
 export const FriendBox = styled.div`
-  width: 100px;
-  height: 70px;
+  width: 100%;
+  height: 50px;
   margin-bottom: 10px;
   border-radius: 5px;
   border: solid 3px;
   color: white;
   text-align: center;
+
+  overflow: hidden;
+  object-fit: cover;
+
   border-color: ${props => {
     if (props.color == 0) {
       return '#16775E'
@@ -186,7 +197,15 @@ export const FriendBox = styled.div`
     }
   }};
 `
+export const FlexBox = styled.div`
+  display: flex;
+  flexdirection: row;
+`
 
+export const Image = styled.img`
+  border-radius: 3px;
+  width: 70px;
+`
 export const H3 = styled.h3`
   color: lightgrey;
   font-size: 14px;
@@ -211,4 +230,13 @@ export const Radio = styled.input`
   border: solid 3px;
   border-color: 'red';
   background-color: 'red';
+`
+
+export const Text = styled.p`
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: white;
+  width: 80px;
+  margin-left: 20px;
 `

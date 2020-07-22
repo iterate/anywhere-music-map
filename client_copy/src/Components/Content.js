@@ -35,6 +35,7 @@ export const Content = ({
   //let sortedArrayOfFriends = []
   //const artistMap = new Map()
 
+  console.log('me', me)
   const sortFriends = () => {
     FriendMap.forEach((object, index) => {
       const artistObject = {
