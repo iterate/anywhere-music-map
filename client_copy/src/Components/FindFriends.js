@@ -113,11 +113,11 @@ export const FindFriends = ({
 
   return (
     <div>
-      <h1>Add Users</h1>
+      <h1>Add Users Based on Similarity</h1>
       <div
         style={{
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: 'row',
           flexWrap: 'wrap',
           height: '600px'
         }}
@@ -190,4 +190,5 @@ export const MatchBox = styled.div`
   justify-content: center;
   border-radius: 10px;
   flex-direction: column;
+  margin: 20px;
 `
