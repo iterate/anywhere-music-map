@@ -7,17 +7,16 @@ export const FindFriends = ({
   setAddFriend,
   me,
   addFriend,
-  personalData
+  personalData,
+  allUsers
 }) => {
   //hente ut folk som er lagret i databasen og legge til
   const [users, setUsers] = useState([])
   const [added, setAdded] = useState()
-
   const [myFriends, setMyFriends] = useState([])
   const getUsers = () => {
     axios.get('http://localhost:8000/api/user').then(res => {
       setUsers(res.data.data)
-      console.log('get user data', res.data.data)
     })
   }
   useEffect(() => {
@@ -36,7 +35,6 @@ export const FindFriends = ({
           }
         })
     })
-    console.log('users', users)
   }, [me, users, me.friends])
 
   let f = false
@@ -46,44 +44,111 @@ export const FindFriends = ({
         friends: user
       })
       .then(setAddFriend(!addFriend))
-    /*     user.userName
-     /*  friends.forEach(friend =>
-      friend.userName === user.userName
-        ? console.log(
-            'friend.userName = user.userName',
-            friend.userName,
-            user.userName
-          )
-        : axios
-            .put(
-              'http://localhost:8000/api/user/' + personalData.display_name,
-              {
-                friends: user
-              }
-            )
-            .then(setAddFriend(!addFriend)) */
+  }
+
+  const compareUsers = () => {
+    const myArtistsLists = new Map()
+    var scoreMap = new Map()
+    var leng
+
+    for (var i = 0; i < allUsers.length; i++) {
+      var user = allUsers[i]
+      leng = user.artists.length
+      myArtistsLists[user.userName] = user.artists
+    }
+
+    for (var f = 0; f < allUsers.length; f++) {
+      var userscore = 0
+      for (var i = 0; i < leng; i++) {
+        for (var j = 0; j < leng; j++) {
+          //console.log(myArtistsLists[me.userName].artists[i])
+          if (
+            myArtistsLists[me.userName][i].name ===
+            myArtistsLists[allUsers[f].userName][j].name
+          ) {
+            userscore++
+          }
+        }
+      }
+
+      scoreMap[allUsers[f].userName] = Math.floor((userscore / leng) * 100)
+    }
+    //console.log('score', scoreMap)
+
+    return scoreMap
+  }
+
+  const scoreMap = compareUsers()
+  const arrayOfFriendscores = []
+
+  //let sortedArrayOfFriends = []
+  //const artistMap = new Map()
+
+  const sortFriends = () => {
+    for (var f = 0; f < allUsers.length; f++) {
+      let userName = allUsers[f].userName
+
+      const friendscore = {
+        name: userName,
+        score: scoreMap[userName]
+      }
+      arrayOfFriendscores.push(friendscore)
+    }
+    let sorted = arrayOfFriendscores.sort((a, b) => {
+      return b.score - a.score
+    })
+    //sortedArrayOfFriends = sorted
+    return sorted
+  }
+
+  const arrayOfSortedFriends = sortFriends()
+
+  const findUserFromName = userName => {
+    users.map((user, i) => {
+      if (user.userName === userName) {
+        addFriendToUser(user)
+      }
+    })
   }
 
   return (
     <div>
       <h1>Add Users</h1>
-      {/*       <h2>USERS: </h2>
-       */}{' '}
-      {users &&
-        users.map(
-          (user, index) =>
-            user.userName !== me.userName && (
-              <div key={index}>
-                <Text>{user.userName}</Text>
-
-                {myFriends && !myFriends.includes(user.userName) && (
-                  <Button onClick={() => addFriendToUser(user)}>
-                    Add user
-                  </Button>
-                )}
-              </div>
-            )
-        )}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          flexWrap: 'wrap',
+          height: '600px'
+        }}
+      >
+        {arrayOfSortedFriends &&
+          arrayOfSortedFriends.map(
+            (user, index) =>
+              user.name !== me.userName && (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column'
+                  }}
+                  key={index}
+                >
+                  <MatchBox>
+                    <Text style={{ marginBottom: '10px' }}>
+                      {scoreMap[user.name]}%
+                    </Text>
+                    <Text>{user.name}</Text>
+                  </MatchBox>
+                  {myFriends && !myFriends.includes(user.name) && (
+                    <Button onClick={() => findUserFromName(user.name)}>
+                      Add user
+                    </Button>
+                  )}
+                </div>
+              )
+          )}
+      </div>
     </div>
   )
 }
@@ -103,6 +168,7 @@ export const Button = styled.button`
   color: white;
   transition: 0.5s ease;
   outline: none;
+  margin-top: 10px;
   &: hover {
     letter-spacing: 5px;
   }
@@ -111,4 +177,17 @@ export const Text = styled.p`
   font-size: 18px;
   text-transform: uppercase;
   letter-spacing: 3px;
+  color: white;
+  margin: 0;
+`
+
+export const MatchBox = styled.div`
+  width: 300px;
+  height: 120px;
+  background-color: #333333;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  flex-direction: column;
 `
