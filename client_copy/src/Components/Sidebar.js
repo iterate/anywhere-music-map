@@ -128,7 +128,7 @@ export const Sidebar = ({
                       {personMap[friend.userName] ? (
                         <Image src={personMap[friend.userName]} />
                       ) : (
-                        <p>friend.userName</p>
+                        <p>{friend.userName}</p>
                       )}
                     </FriendBox>
                     <div style={{ marginLeft: '5px' }}>

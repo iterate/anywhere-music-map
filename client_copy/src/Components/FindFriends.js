@@ -41,11 +41,19 @@ export const FindFriends = ({
 
   let f = false
   const addFriendToUser = user => {
-    console.log('user', user)
+    axios
+      .put('http://localhost:8000/api/user/' + personalData.display_name, {
+        friends: user
+      })
+      .then(setAddFriend(!addFriend))
     /*     user.userName
-     */ friends.forEach(friend =>
+     /*  friends.forEach(friend =>
       friend.userName === user.userName
-        ? false
+        ? console.log(
+            'friend.userName = user.userName',
+            friend.userName,
+            user.userName
+          )
         : axios
             .put(
               'http://localhost:8000/api/user/' + personalData.display_name,
@@ -53,8 +61,7 @@ export const FindFriends = ({
                 friends: user
               }
             )
-            .then(setAddFriend(!addFriend))
-    )
+            .then(setAddFriend(!addFriend)) */
   }
 
   return (
