@@ -61,10 +61,13 @@ export const FindFriends = ({
       var userscore = 0
       for (var i = 0; i < leng; i++) {
         for (var j = 0; j < leng; j++) {
-          //console.log(myArtistsLists[me.userName].artists[i])
           if (
-            myArtistsLists[me.userName][i].name ===
-            myArtistsLists[allUsers[f].userName][j].name
+            (myArtistsLists &&
+              myArtistsLists[me.userName] &&
+              myArtistsLists[me.userName][i] &&
+              myArtistsLists[me.userName][i].name) ===
+            (myArtistsLists[allUsers[f].userName][j] &&
+              myArtistsLists[allUsers[f].userName][j].name)
           ) {
             userscore++
           }

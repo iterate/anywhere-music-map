@@ -27,7 +27,8 @@ export const Sidebar = ({
       setUsers(res.data.data)
       res.data.data.forEach(user => {
         user.artists.forEach(artist => {
-          artistMap[artist.name] = artist.images[0].url
+          artistMap[artist.name] =
+            artist.images && artist.images[0] && artist.images[0].url
         })
       })
     })

@@ -207,6 +207,7 @@ export const LoginContent = styled.div`
   flex-direction: row;
   background-color: #e0e0e0;
   width: 100%;
+  min-height: 1000px;
 `
 
 export const LoginButton = styled.button`
