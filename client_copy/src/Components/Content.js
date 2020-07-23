@@ -11,7 +11,8 @@ export const Content = ({
   addFriendPage,
   artistMap,
   addFriend,
-  setAddFriend
+  setAddFriend,
+  users
 }) => {
   let FriendMap = new Map()
 
@@ -37,7 +38,7 @@ export const Content = ({
   //let sortedArrayOfFriends = []
   //const artistMap = new Map()
 
-  console.log('me', me)
+  //console.log('me', me)
   const sortFriends = () => {
     FriendMap.forEach((object, index) => {
       const artistObject = {
@@ -67,6 +68,7 @@ export const Content = ({
             setAddFriend={setAddFriend}
             personalData={personalData}
             friends={friends}
+            allUsers={users}
           />
         </div>
       ) : (

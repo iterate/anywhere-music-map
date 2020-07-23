@@ -7,17 +7,16 @@ export const FindFriends = ({
   setAddFriend,
   me,
   addFriend,
-  personalData
+  personalData,
+  allUsers
 }) => {
   //hente ut folk som er lagret i databasen og legge til
   const [users, setUsers] = useState([])
   const [added, setAdded] = useState()
-
   const [myFriends, setMyFriends] = useState([])
   const getUsers = () => {
     axios.get('http://localhost:8000/api/user').then(res => {
       setUsers(res.data.data)
-      console.log('get user data', res.data.data)
     })
   }
   useEffect(() => {
@@ -36,41 +35,99 @@ export const FindFriends = ({
           }
         })
     })
-    console.log('users', users)
   }, [me, users, me.friends])
 
   let f = false
   const addFriendToUser = user => {
-    console.log('user', user)
-    /*     user.userName
-     */ friends.forEach(friend =>
-      friend.userName === user.userName
-        ? false
-        : axios
-            .put(
-              'http://localhost:8000/api/user/' + personalData.display_name,
-              {
-                friends: user
-              }
-            )
-            .then(setAddFriend(!addFriend))
-    )
+    axios
+      .put('http://localhost:8000/api/user/' + personalData.display_name, {
+        friends: user
+      })
+      .then(setAddFriend(!addFriend))
   }
 
+  const compareUsers = () => {
+    const myArtistsLists = new Map()
+    var scoreMap = new Map()
+    var leng
+
+    for (var i = 0; i < allUsers.length; i++) {
+      var user = allUsers[i]
+      leng = user.artists.length
+      myArtistsLists[user.userName] = user.artists
+    }
+
+    for (var f = 0; f < allUsers.length; f++) {
+      var userscore = 0
+      for (var i = 0; i < leng; i++) {
+        for (var j = 0; j < leng; j++) {
+          //console.log(myArtistsLists[me.userName].artists[i])
+          if (
+            myArtistsLists[me.userName][i].name ===
+            myArtistsLists[allUsers[f].userName][j].name
+          ) {
+            userscore++
+          }
+        }
+      }
+
+      scoreMap[allUsers[f].userName] = Math.floor((userscore / leng) * 100)
+    }
+    //console.log('score', scoreMap)
+
+    return scoreMap
+  }
+
+  const scoreMap = compareUsers()
+  const arrayOfFriendscores = []
+
+  //let sortedArrayOfFriends = []
+  //const artistMap = new Map()
+
+  const sortFriends = () => {
+    for (var f = 0; f < allUsers.length; f++) {
+      let userName = allUsers[f].userName
+
+      const friendscore = {
+        name: userName,
+        score: scoreMap[userName]
+      }
+      arrayOfFriendscores.push(friendscore)
+    }
+    let sorted = arrayOfFriendscores.sort((a, b) => {
+      return b.score - a.score
+    })
+    //sortedArrayOfFriends = sorted
+    return sorted
+  }
+
+  const arrayOfSortedFriends = sortFriends()
+
+  const findUserFromName = userName => {
+    users.map((user, i) => {
+      if (user.userName === userName) {
+        addFriendToUser(user)
+      }
+    })
+  }
+  /* useEffect(() => {
+    sortFriends()
+  }, [me, users]) */
   return (
     <div>
       <h1>Add Users</h1>
       {/*       <h2>USERS: </h2>
        */}{' '}
-      {users &&
-        users.map(
+      {arrayOfSortedFriends &&
+        arrayOfSortedFriends.map(
           (user, index) =>
-            user.userName !== me.userName && (
+            user.name !== me.userName && (
               <div key={index}>
-                <Text>{user.userName}</Text>
+                <Text>{user.name}</Text>
+                <p>your matching score is {scoreMap[user.name]}%</p>
 
-                {myFriends && !myFriends.includes(user.userName) && (
-                  <Button onClick={() => addFriendToUser(user)}>
+                {myFriends && !myFriends.includes(user.name) && (
+                  <Button onClick={() => findUserFromName(user.name)}>
                     Add user
                   </Button>
                 )}
